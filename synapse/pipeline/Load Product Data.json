@@ -45,13 +45,7 @@
 					"staging": {
 						"linkedService": {
 							"referenceName": "DataLake",
-							"type": "LinkedServiceReference",
-							"parameters": {
-								"suffix": {
-									"value": "@replace(pipeline().DataFactory, 'synapse-', '')",
-									"type": "Expression"
-								}
-							}
+							"type": "LinkedServiceReference"
 						},
 						"folderPath": "files/labs-dp-203/10/stage_products"
 					},
