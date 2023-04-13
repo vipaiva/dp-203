@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "synapse-vipaiva"
+		},
+		"SqlAdventureWorksLT_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqldb-weslbo.database.windows.net;Initial Catalog=AdventureWorksLT;User ID=azureuser"
+		},
+		"SqlDwh_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=\"@{concat('synapse-', linkedService().suffix,'.sql.azuresynapse.net')}\";Initial Catalog=sqldwh"
+		},
+		"synapse-vipaiva-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:synapse-vipaiva.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"synapse-weslbo-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:synapse-weslbo.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"DataLake_properties_typeProperties_url": {
+			"value": "https://datalakevipaiva.dfs.core.windows.net"
+		},
+		"GitHubDP203AzureDataEngineer_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/MicrosoftLearning/DP-203-Azure-Data-Engineer/"
+		},
+		"GitHubDP500AzureDataAnalyst_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/MicrosoftLearning/DP-500-Azure-Data-Analyst/"
+		},
+		"KeyVault_properties_typeProperties_baseUrl": {
+			"value": "@{concat('https://keyvault-', linkedService().suffix, '.vault.azure.net/')}"
+		},
+		"Products_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/MicrosoftLearning/dp-203-azure-data-engineer/master/Allfiles/labs/01/adventureworks/products.csv"
+		},
+		"synapse-vipaiva-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://datalakevipaiva.dfs.core.windows.net"
+		},
+		"synapse-weslbo-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://datalakeweslbo.dfs.core.windows.net"
+		}
+	}
+}
