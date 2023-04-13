@@ -2,11 +2,6 @@
 	"name": "DataLake",
 	"properties": {
 		"description": "The Azure Data Lake that is linked to this workspace",
-		"parameters": {
-			"suffix": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "AzureBlobFS",
 		"typeProperties": {
