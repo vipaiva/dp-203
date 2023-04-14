@@ -2,7 +2,7 @@
 	"name": "SQL script 1",
 	"properties": {
 		"content": {
-			"query": "",
+			"query": "\tPK 🗹\tUnique customer ID\t🗆\tlong\t \n\tPK 🗆\tCustomer first name\t🗆\tstring\t256\nLastName\tPK 🗆\tCustomer last name\t🗹\tstring\t256\n\tPK 🗆\tCustomer email\t🗆\tstring\t256\n\tPK 🗆\tCustomer phone\t🗹\tstring\t256",
 			"metadata": {
 				"language": "sql"
 			},
