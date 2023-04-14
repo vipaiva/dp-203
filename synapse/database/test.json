@@ -1,0 +1,22 @@
+{
+	"name": "test",
+	"properties": {
+		"Name": "test",
+		"EntityType": "DATABASE",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true
+		},
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://files@datalakevipaiva.dfs.core.windows.net/RetailDB",
+			"Properties": {
+				"FormatType": "csv",
+				"LinkedServiceName": "DataLake"
+			}
+		}
+	},
+	"type": "DATABASE"
+}
