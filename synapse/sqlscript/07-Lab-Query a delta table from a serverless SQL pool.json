@@ -11,8 +11,8 @@
 				"language": "sql"
 			},
 			"currentConnection": {
-				"databaseName": "adventureworks",
-				"poolName": "Built-in"
+				"databaseName": "sqldwh",
+				"poolName": "sqldwh"
 			},
 			"resultLimit": 5000
 		},
