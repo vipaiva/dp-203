@@ -1,0 +1,159 @@
+{
+	"name": "AlertAffectedProduct",
+	"properties": {
+		"Name": "AlertAffectedProduct",
+		"EntityType": "TABLE",
+		"Namespace": {
+			"DatabaseName": "RetailDB"
+		},
+		"Description": "Specific Product on alert status in conjunction with the associated Product Alert.",
+		"TableType": "EXTERNAL",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"StorageDescriptor": {
+			"Columns": [
+				{
+					"Name": "ProductId",
+					"Description": "The unique identifier of a Product.",
+					"BaseAttributeReference": {
+						"Entity": "AlertAffectedProduct.cdm.json/AlertAffectedProduct",
+						"Name": "ProductId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "long",
+						"IsComplexType": false,
+						"IsNullable": false,
+						"Properties": {
+							"HIVE_TYPE_STRING": "long"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "ProductAlertId",
+					"Description": "The unique identifier of a Product Alert.",
+					"BaseAttributeReference": {
+						"Entity": "AlertAffectedProduct.cdm.json/AlertAffectedProduct",
+						"Name": "ProductAlertId"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": false,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "MinimumSerialNumber",
+					"Description": "The minimum (low) serial number of products under alert.",
+					"BaseAttributeReference": {
+						"Entity": "AlertAffectedProduct.cdm.json/AlertAffectedProduct",
+						"Name": "MinimumSerialNumber"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 30,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "MaximumSerialNumber",
+					"Description": "The maximum (high) serial number of products under alert.",
+					"BaseAttributeReference": {
+						"Entity": "AlertAffectedProduct.cdm.json/AlertAffectedProduct",
+						"Name": "MaximumSerialNumber"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 30,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "ManufacturedPeriodStartDate",
+					"Description": "The starting manufactured date of products under alert.",
+					"BaseAttributeReference": {
+						"Entity": "AlertAffectedProduct.cdm.json/AlertAffectedProduct",
+						"Name": "ManufacturedPeriodStartDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "ManufacturedPeriodEndDate",
+					"Description": "The ending manufactured date of products under alert.",
+					"BaseAttributeReference": {
+						"Entity": "AlertAffectedProduct.cdm.json/AlertAffectedProduct",
+						"Name": "ManufacturedPeriodEndDate"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "date",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"DateFormat": "YYYY-MM-DD",
+							"HIVE_TYPE_STRING": "date"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				},
+				{
+					"Name": "NumberOfProductUnitsAlerted",
+					"Description": "The number of products covered by the associated serial number/manufactured date of products.",
+					"BaseAttributeReference": {
+						"Entity": "AlertAffectedProduct.cdm.json/AlertAffectedProduct",
+						"Name": "NumberOfProductUnitsAlerted"
+					},
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"DeltaFormatInvalidMessages": []
+				}
+			],
+			"Properties": {
+				"textinputformat.record.delimiter": ",",
+				"compression": "",
+				"derivedModelAttributeInfo": "{\"attributeReferences\":{\"ProductId\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"ProductId\"},\"ProductAlertId\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"ProductAlertId\"},\"MinimumSerialNumber\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"MinimumSerialNumber\"},\"MaximumSerialNumber\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"MaximumSerialNumber\"},\"ManufacturedPeriodStartDate\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"ManufacturedPeriodStartDate\"},\"ManufacturedPeriodEndDate\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"ManufacturedPeriodEndDate\"},\"NumberOfProductUnitsAlerted\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"NumberOfProductUnitsAlerted\"}}}"
+			},
+			"Compressed": false,
+			"IsStoredAsSubdirectories": false
+		},
+		"Properties": {
+			"DerivedModelEntityInfo": "{\"entityDirectives\":{\"baseEntityReference\":{\"name\":\"AlertAffectedProduct\",\"path\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\"},\"description\":\"Specific Product on alert status in conjunction with the associated Product Alert.\",\"primaryKey\":[\"ProductId\",\"ProductAlertId\"],\"projectionInfo\":{\"attributes\":[{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"ProductId\"},\"dataType\":\"long\",\"description\":\"The unique identifier of a Product.\",\"isNullable\":false,\"name\":\"ProductId\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"ProductAlertId\"},\"dataType\":\"integer\",\"description\":\"The unique identifier of a Product Alert.\",\"isNullable\":false,\"name\":\"ProductAlertId\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"MinimumSerialNumber\"},\"dataType\":\"string\",\"dataTypeLength\":30,\"description\":\"The minimum (low) serial number of products under alert.\",\"isNullable\":true,\"name\":\"MinimumSerialNumber\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"MaximumSerialNumber\"},\"dataType\":\"string\",\"dataTypeLength\":30,\"description\":\"The maximum (high) serial number of products under alert.\",\"isNullable\":true,\"name\":\"MaximumSerialNumber\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"ManufacturedPeriodStartDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The starting manufactured date of products under alert.\",\"isNullable\":true,\"name\":\"ManufacturedPeriodStartDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"ManufacturedPeriodEndDate\"},\"dataType\":\"date\",\"dateFormat\":\"YYYY-MM-DD\",\"description\":\"The ending manufactured date of products under alert.\",\"isNullable\":true,\"name\":\"ManufacturedPeriodEndDate\"},{\"type\":\"Existing\",\"attributeReference\":{\"entity\":\"AlertAffectedProduct.cdm.json/AlertAffectedProduct\",\"name\":\"NumberOfProductUnitsAlerted\"},\"dataType\":\"integer\",\"description\":\"The number of products covered by the associated serial number/manufactured date of products.\",\"isNullable\":true,\"name\":\"NumberOfProductUnitsAlerted\"}]}}}",
+			"Description": "Specific Product on alert status in conjunction with the associated Product Alert.",
+			"DisplayFolderInfo": "{\"name\":\"Product\",\"colorCode\":\"#BD4B37\"}",
+			"PrimaryKeys": "ProductId,ProductAlertId"
+		},
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false
+	},
+	"type": "TABLE"
+}

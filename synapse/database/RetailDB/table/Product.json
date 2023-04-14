@@ -126,8 +126,8 @@
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "decimal",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Precision": 18,
 						"Scale": 2,
 						"Properties": {
