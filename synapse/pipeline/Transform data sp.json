@@ -54,7 +54,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_GetYearlySales]"
+					"storedProcedureName": "[dbo].[sp_GetYearlySalesPipeline]"
 				},
 				"linkedServiceName": {
 					"referenceName": "SQLOnDemandSales",
