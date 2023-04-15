@@ -5,6 +5,9 @@
 		"workspaceName": {
 			"value": "synapse-vipaiva"
 		},
+		"SQLOnDemandSales_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=synapse-vipaiva-ondemand.sql.azuresynapse.net;Initial Catalog=Sales"
+		},
 		"SqlAdventureWorksLT_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqldb-weslbo.database.windows.net;Initial Catalog=AdventureWorksLT;User ID=azureuser"
 		},
