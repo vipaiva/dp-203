@@ -26,6 +26,33 @@
 						"enablePartitionDiscovery": false
 					}
 				}
+			},
+			{
+				"name": "sp_GetYearlySales",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Delete Files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_GetYearlySales]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SQLOnDemandSales",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
