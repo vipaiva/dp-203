@@ -19,6 +19,13 @@
 						"referenceName": "PipelineFilesSP",
 						"type": "DatasetReference"
 					},
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "DataLake",
+							"type": "LinkedServiceReference"
+						},
+						"path": "files/labs-dp-203/02/data/L3/data/Logging"
+					},
 					"enableLogging": true,
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
