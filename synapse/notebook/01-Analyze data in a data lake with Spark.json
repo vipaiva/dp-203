@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "d9190551-b702-4fbb-8f99-746f9ce8d37f"
+				"spark.autotune.trackingId": "f1bc95ec-cd0e-424c-80ae-d889cf49791d"
 			}
 		},
 		"metadata": {
@@ -88,7 +88,7 @@
 					")\r\n",
 					"display(df.limit(10))"
 				],
-				"execution_count": null
+				"execution_count": 2
 			},
 			{
 				"cell_type": "markdown",
@@ -127,7 +127,7 @@
 					"df = spark.read.load('abfss://files@datalakevipaiva.dfs.core.windows.net/labs-dp-500/02/data/*.csv', format='csv')\r\n",
 					"display(df.limit(10))"
 				],
-				"execution_count": 2
+				"execution_count": 3
 			},
 			{
 				"cell_type": "markdown",
@@ -179,7 +179,7 @@
 					"df = spark.read.load('abfss://files@datalakevipaiva.dfs.core.windows.net/labs-dp-500/02/data/*.csv', format='csv', schema=orderSchema)\r\n",
 					"display(df.limit(100))"
 				],
-				"execution_count": 3
+				"execution_count": 4
 			},
 			{
 				"cell_type": "code",
