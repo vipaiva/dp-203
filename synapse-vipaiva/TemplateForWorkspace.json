@@ -322,7 +322,7 @@
 						}
 					},
 					{
-						"name": "sp_GetYearlySales",
+						"name": "sp_GetYearlySalesPipeline",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
@@ -1575,8 +1575,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "*",
-						"folderPath": "labs-dp-203/02/data/L3/data/pipelinesp",
+						"folderPath": "labs-dp-203/02/data/L3/data/yearlysalespipeline",
 						"fileSystem": "files"
 					}
 				}
@@ -2461,6 +2460,26 @@
 				},
 				"content": {
 					"query": "-- Demo: Query files using a serverless SQL pool\n-- Task: Access external data in a database\nDROP DATABASE Sales\nGO;\n\nCREATE DATABASE Sales\nCOLLATE Latin1_General_100_BIN2_UTF8;\nGO;\n\nUse Sales\n\nCREATE EXTERNAL DATA SOURCE sales_data WITH (\n   -- LOCATION = 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-500/01/data/'\n    LOCATION = 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/02/data/'\n);\nGO;\n\n-- The following query uses the external data source to connect to the data lake, and the OPENROWSET function \n-- now only need to reference the relative path to the .csv files.\n\nSELECT *\nFROM\n    OPENROWSET(\n        BULK '*.csv',\n        DATA_SOURCE = 'sales_data',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0'\n    ) AS orders\n\n\n-- Query the parquet files using the data source, sales data for 2019 file\n\nSELECT *\nFROM  \n    OPENROWSET(\n        BULK '*.snappy.parquet',\n        DATA_SOURCE = 'sales_data',\n        FORMAT='PARQUET'\n    ) AS orders\nWHERE replace(orders.filepath(1), '.snappy', '') = '2019'\n\n-- The external data source makes it easier to access the files in the data lake, but most data analysts using SQL \n-- are used to working with tables in a database. Fortunately, you can also define external file formats and external\n-- tables that encapsulate rowsets from files in database tables.\n\nCREATE EXTERNAL FILE FORMAT CsvFormat\n    WITH (\n        FORMAT_TYPE = DELIMITEDTEXT,\n        FORMAT_OPTIONS(\n        FIELD_TERMINATOR = ',',\n        STRING_DELIMITER = '\"'\n        )\n    );\nGO;\n\nCREATE EXTERNAL TABLE dbo.orders\n(\n    SalesOrderNumber VARCHAR(10),\n    SalesOrderLineNumber INT,\n    OrderDate DATE,\n    CustomerName VARCHAR(25),\n    EmailAddress VARCHAR(50),\n    Item VARCHAR(30),\n    Quantity INT,\n    UnitPrice DECIMAL(18,2),\n    TaxAmount DECIMAL (18,2)\n)\nWITH\n(\n    DATA_SOURCE =sales_data,\n    LOCATION = '*.csv',\n    FILE_FORMAT = CsvFormat\n);\nGO\n\n-- Now that you’ve explored various ways to query files in the data lake by using SQL queries, you can analyze \n-- the results of these queries to gain insights into the data. Often, insights are easier to uncover by visualizing \n-- the query results in a chart; which you can easily do by using the integrated charting functionality in the Synapse Studio query editor.\n\n--visualization > bar > category: orderyear  > legend: grossrevenue\n\nSELECT YEAR(OrderDate) AS OrderYear,\n    SUM((UnitPrice * Quantity) + TaxAmount) AS GrossRevenue\nFROM dbo.orders\nGROUP BY YEAR(OrderDate)\nORDER BY OrderYear;\n\n-- Cleanup\nDROP EXTERNAL TABLE dbo.orders\nDROP EXTERNAL TABLE dbo.ProductSalesTotals\nDROP EXTERNAL TABLE dbo.YearlySalesTotals\nDROP EXTERNAL FILE FORMAT ParquetFormat\nDROp EXTERNAL FILE FORMAT CsvFormat\nDROP EXTERNAL DATA SOURCE sales_data\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "Sales",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/04-Create SP Pipeline')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Lab: Transform files using a serverless SQL pool\n-- Task: Create Stored Procedure\n\nUSE Sales;\nGO;\n\n-- External data is in the Files container in the data lake\nCREATE EXTERNAL DATA SOURCE sales_data WITH (\n    LOCATION = 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/02/data/'\n);\nGO;\n\n-- Format for table files\nCREATE EXTERNAL FILE FORMAT ParquetFormat\n    WITH (\n            FORMAT_TYPE = PARQUET,\n            DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n        );\nGO;\n\n-- If you will need to transform data frequently, you can use a stored procedure to encapsulate a CETAS statement.\n-- create a stored procedure in the Sales database that aggregates sales by \n-- year and saves the results in an external table:\n\nCREATE PROCEDURE sp_GetYearlySalesPipeline\nAS\nBEGIN\n    IF EXISTS (\n            SELECT * FROM sys.external_tables\n            WHERE name = 'YearlySalesTotalsPipeline'\n        )\n    DROP EXTERNAL TABLE YearlySalesTotalsPipeline\n    \n    CREATE EXTERNAL TABLE YearlySalesTotalsPipeline\n    WITH (\n            LOCATION = 'L3/data/yearlysalespipeline/',\n            DATA_SOURCE = sales_data,\n            FILE_FORMAT = ParquetFormat\n        )\n    AS\n    SELECT YEAR(OrderDate) AS CalendarYear,\n           SUM(Quantity) AS ItemsSold,\n           ROUND(SUM(UnitPrice) - SUM(TaxAmount), 2) AS NetRevenue\n    FROM\n        OPENROWSET(\n            BULK '*.csv',\n            DATA_SOURCE = 'sales_data',\n            FORMAT = 'CSV',\n            PARSER_VERSION = '2.0'\n        ) \n        WITH(\n        SalesOrderNumber VARCHAR(10),\n        SalesOrderLineNumber INT,\n        OrderDate DATE,\n        CustomerName VARCHAR(25),\n        EmailAddress VARCHAR(50),\n        Item VARCHAR(50),\n        Quantity INT,\n        UnitPrice DECIMAL(18,2),\n        TaxAmount DECIMAL (18,2)\n    ) AS orders \n    GROUP BY YEAR(OrderDate)\nEND\n\nGO;\n\n-- Execute the stored procedure:\nEXEC sp_GetYearlySales;\n\n-- On the files tab containing the file system for your data lake, \n-- view the contents of the sales folder (refreshing the view if necessary) \n-- and verify that a new yearlysales folder has been created.\n\nSELECT * FROM YearlySalesTotalsPipeline\n\n\nDROP PROCEDURE sp_GetYearlySalesPipeline \nDROP EXTERNAL TABLE YearlySalesTotalsPipeline\nDROP EXTERNAL FILE FORMAT ParquetFormat\nDROP EXTERNAL DATA SOURCE sales_data\n\nUSE Master\nDROP DATABASE Sales",
 					"metadata": {
 						"language": "sql"
 					},
