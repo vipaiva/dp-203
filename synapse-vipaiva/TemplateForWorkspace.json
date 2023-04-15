@@ -2376,7 +2376,7 @@
 					"name": "dp-203/02-Serverless SQL/02-Demo-Query files using a serverless SQL pool"
 				},
 				"content": {
-					"query": "-- Do this only once!\nCREATE DATABASE AdventureWorksLTServerless\n\n-- Change database\nUSE AdventureWorksLTServerless\nGO\n\n-- Create a separate schema (optional)\nCREATE SCHEMA SalesLTS\nGO\n\n----- Create database views to access the data in the data lake ( Works same as standard views )\n\nCREATE VIEW SalesLTS.vProduct\nAS\nSELECT *\nFROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.Product.parquet', FORMAT = 'PARQUET') AS [result]\nGO\n\n\n-- Create views for every tables, based on PARQUET format\nCREATE VIEW SalesLTS.vAddress AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.Address.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vCustomer AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.Customer.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vCustomerAddress AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.CustomerAddress.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vProductCategory AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.ProductCategory.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vProductDescription AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.ProductDescription.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vProductModel AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.ProductModel.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vProductModelProductDescription AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.ProductModelProductDescription.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vSalesOrderDetail AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.SalesOrderDetail.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vSalesOrderHeader AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.SalesOrderHeader.parquet', FORMAT = 'PARQUET') AS [result]\nGO\n\n-- PLAYGROUND: Confirm data can be retrieved\nSELECT TOP 10 * FROM SalesLTS.vAddress\nSELECT TOP 10 * FROM SalesLTS.vCustomer\nSELECT TOP 10 * FROM SalesLTS.vCustomerAddress\nSELECT TOP 10 * FROM SalesLTS.vProduct\nSELECT TOP 10 * FROM SalesLTS.vProductCategory\nSELECT TOP 10 * FROM SalesLTS.vProductDescription\nSELECT TOP 10 * FROM SalesLTS.vProductModel\nSELECT TOP 10 * FROM SalesLTS.vProductModelProductDescription\nSELECT TOP 10 * FROM SalesLTS.vSalesOrderDetail\nSELECT TOP 10 * FROM SalesLTS.vSalesOrderHeader\n\n\nSELECT c.[Name] CategoryName\n\t,COUNT_BIG(p.ProductCategoryID) TotalNumberProduct\n--select top 1 *\nFROM SalesLTS.vProduct AS p\nINNER JOIN SalesLTS.vProductCategory AS c ON p.ProductCategoryID = c.ProductCategoryID\nGROUP BY c.[Name]\nORDER BY TotalNumberProduct DESC\n\n\n",
+					"query": "-- Do this only once!\n\nDROP DATABASE AdventureWorksLTServerless\n\nCREATE DATABASE AdventureWorksLTServerless\n\n-- Change database\nUSE AdventureWorksLTServerless\nGO\n\n-- Create a separate schema (optional)\nCREATE SCHEMA SalesLTS\nGO\n\n----- Create database views to access the data in the data lake ( Works same as standard views )\n\nCREATE VIEW SalesLTS.vProduct\nAS\nSELECT *\nFROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.Product.parquet', FORMAT = 'PARQUET') AS [result]\nGO\n\n\n-- Create views for every tables, based on PARQUET format\nCREATE VIEW SalesLTS.vAddress AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.Address.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vCustomer AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.Customer.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vCustomerAddress AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.CustomerAddress.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vProductCategory AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.ProductCategory.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vProductDescription AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.ProductDescription.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vProductModel AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.ProductModel.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vProductModelProductDescription AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.ProductModelProductDescription.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vSalesOrderDetail AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.SalesOrderDetail.parquet', FORMAT = 'PARQUET') AS [result]\nGO\nCREATE VIEW SalesLTS.vSalesOrderHeader AS SELECT * FROM OPENROWSET(BULK 'https://datalakevipaiva.dfs.core.windows.net/landing/adventureworkslt/tables/parquet/SalesLT.SalesOrderHeader.parquet', FORMAT = 'PARQUET') AS [result]\nGO\n\n-- PLAYGROUND: Confirm data can be retrieved\nSELECT TOP 10 * FROM SalesLTS.vAddress\nSELECT TOP 10 * FROM SalesLTS.vCustomer\nSELECT TOP 10 * FROM SalesLTS.vCustomerAddress\nSELECT TOP 10 * FROM SalesLTS.vProduct\nSELECT TOP 10 * FROM SalesLTS.vProductCategory\nSELECT TOP 10 * FROM SalesLTS.vProductDescription\nSELECT TOP 10 * FROM SalesLTS.vProductModel\nSELECT TOP 10 * FROM SalesLTS.vProductModelProductDescription\nSELECT TOP 10 * FROM SalesLTS.vSalesOrderDetail\nSELECT TOP 10 * FROM SalesLTS.vSalesOrderHeader\n\n\nSELECT c.[Name] CategoryName\n\t,COUNT_BIG(p.ProductCategoryID) TotalNumberProduct\n--select top 1 *\nFROM SalesLTS.vProduct AS p\nINNER JOIN SalesLTS.vProductCategory AS c ON p.ProductCategoryID = c.ProductCategoryID\nGROUP BY c.[Name]\nORDER BY TotalNumberProduct DESC\n\n\n",
 					"metadata": {
 						"language": "sql"
 					},
@@ -9246,18 +9246,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/sqldwh')]",
-			"type": "Microsoft.Synapse/workspaces/sqlPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"collation": "SQL_Latin1_General_CP1_CI_AS",
-				"maxSizeBytes": 263882790666240,
-				"annotations": []
-			},
-			"dependsOn": [],
-			"location": "uksouth"
-		},
-		{
 			"name": "[concat(parameters('workspaceName'), '/sparkpool')]",
 			"type": "Microsoft.Synapse/workspaces/bigDataPools",
 			"apiVersion": "2019-06-01-preview",
@@ -9277,6 +9265,18 @@
 				"sparkVersion": "3.2",
 				"isComputeIsolationEnabled": false,
 				"sessionLevelPackagesEnabled": false,
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "uksouth"
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/sqldwh')]",
+			"type": "Microsoft.Synapse/workspaces/sqlPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"collation": "SQL_Latin1_General_CP1_CI_AS",
+				"maxSizeBytes": 263882790666240,
 				"annotations": []
 			},
 			"dependsOn": [],
