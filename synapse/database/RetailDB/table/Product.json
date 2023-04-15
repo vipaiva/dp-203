@@ -16,10 +16,6 @@
 				{
 					"Name": "ProductId",
 					"Description": "The unique identifier of a Product.",
-					"BaseAttributeReference": {
-						"Entity": "RetailProduct.cdm.json/RetailProduct",
-						"Name": "ProductId"
-					},
 					"OriginDataTypeName": {
 						"TypeName": "long",
 						"IsComplexType": false,
@@ -28,15 +24,15 @@
 							"HIVE_TYPE_STRING": "long"
 						}
 					},
+					"BaseAttributeReference": {
+						"Entity": "RetailProduct.cdm.json/RetailProduct",
+						"Name": "ProductId"
+					},
 					"DeltaFormatInvalidMessages": []
 				},
 				{
 					"Name": "ProductName",
 					"Description": "The name of the Product, which normally corresponds to the 'marketing name' of the Product.",
-					"BaseAttributeReference": {
-						"Entity": "RetailProduct.cdm.json/RetailProduct",
-						"Name": "ProductName"
-					},
 					"OriginDataTypeName": {
 						"TypeName": "string",
 						"IsComplexType": false,
@@ -46,15 +42,15 @@
 							"HIVE_TYPE_STRING": "string"
 						}
 					},
+					"BaseAttributeReference": {
+						"Entity": "RetailProduct.cdm.json/RetailProduct",
+						"Name": "ProductName"
+					},
 					"DeltaFormatInvalidMessages": []
 				},
 				{
 					"Name": "IntroductionDate",
 					"Description": "The date that the Product was introduced for sale.",
-					"BaseAttributeReference": {
-						"Entity": "RetailProduct.cdm.json/RetailProduct",
-						"Name": "IntroductionDate"
-					},
 					"OriginDataTypeName": {
 						"TypeName": "date",
 						"IsComplexType": false,
@@ -63,16 +59,16 @@
 							"DateFormat": "YYYY-MM-DD",
 							"HIVE_TYPE_STRING": "date"
 						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "RetailProduct.cdm.json/RetailProduct",
+						"Name": "IntroductionDate"
 					},
 					"DeltaFormatInvalidMessages": []
 				},
 				{
 					"Name": "ActualAbandonmentDate",
 					"Description": "The actual date that the marketing of the product was discontinued. \n\nAbandonment is a component in the decline stage of the product's life cycle characterized by a reduced market demand for the product and an increased number of competing products with similar characteristics.\n\nThere are three (3) strategies for abandoning a product:\n\n(1)  Reduced marketing and expenditures to maintain profits.\n\n(2)  Concentrating on the strongest market segments and eliminating the weaker market segments\n\n(3)  Maintain the marketing level until the product is discontinued.",
-					"BaseAttributeReference": {
-						"Entity": "RetailProduct.cdm.json/RetailProduct",
-						"Name": "ActualAbandonmentDate"
-					},
 					"OriginDataTypeName": {
 						"TypeName": "date",
 						"IsComplexType": false,
@@ -82,15 +78,15 @@
 							"HIVE_TYPE_STRING": "date"
 						}
 					},
+					"BaseAttributeReference": {
+						"Entity": "RetailProduct.cdm.json/RetailProduct",
+						"Name": "ActualAbandonmentDate"
+					},
 					"DeltaFormatInvalidMessages": []
 				},
 				{
 					"Name": "ProductGrossWeight",
 					"Description": "The gross product weight.",
-					"BaseAttributeReference": {
-						"Entity": "RetailProduct.cdm.json/RetailProduct",
-						"Name": "ProductGrossWeight"
-					},
 					"OriginDataTypeName": {
 						"TypeName": "decimal",
 						"IsComplexType": false,
@@ -101,15 +97,15 @@
 							"HIVE_TYPE_STRING": "decimal"
 						}
 					},
+					"BaseAttributeReference": {
+						"Entity": "RetailProduct.cdm.json/RetailProduct",
+						"Name": "ProductGrossWeight"
+					},
 					"DeltaFormatInvalidMessages": []
 				},
 				{
 					"Name": "ItemSku",
 					"Description": "The Stock Keeping Unit identifier, which is typically used for inventory-related activities.",
-					"BaseAttributeReference": {
-						"Entity": "RetailProduct.cdm.json/RetailProduct",
-						"Name": "ItemSku"
-					},
 					"OriginDataTypeName": {
 						"TypeName": "string",
 						"IsComplexType": false,
@@ -118,6 +114,10 @@
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
 						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "RetailProduct.cdm.json/RetailProduct",
+						"Name": "ItemSku"
 					},
 					"DeltaFormatInvalidMessages": []
 				},
@@ -164,7 +164,7 @@
 			},
 			"Properties": {
 				"textinputformat.record.delimiter": ",",
-				"compression": "",
+				"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
 				"derivedModelAttributeInfo": "{\"attributeReferences\":{\"ProductId\":{\"entity\":\"RetailProduct.cdm.json/RetailProduct\",\"name\":\"ProductId\"},\"ProductName\":{\"entity\":\"RetailProduct.cdm.json/RetailProduct\",\"name\":\"ProductName\"},\"IntroductionDate\":{\"entity\":\"RetailProduct.cdm.json/RetailProduct\",\"name\":\"IntroductionDate\"},\"ActualAbandonmentDate\":{\"entity\":\"RetailProduct.cdm.json/RetailProduct\",\"name\":\"ActualAbandonmentDate\"},\"ProductGrossWeight\":{\"entity\":\"RetailProduct.cdm.json/RetailProduct\",\"name\":\"ProductGrossWeight\"},\"ItemSku\":{\"entity\":\"RetailProduct.cdm.json/RetailProduct\",\"name\":\"ItemSku\"}}}"
 			},
 			"Compressed": false,
