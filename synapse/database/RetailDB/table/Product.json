@@ -17,8 +17,8 @@
 					"Name": "ProductId",
 					"OriginDataTypeName": {
 						"TypeName": "long",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
@@ -29,8 +29,8 @@
 					"Name": "ProductName",
 					"OriginDataTypeName": {
 						"TypeName": "string",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
 						"Length": 128,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
@@ -42,8 +42,8 @@
 					"Name": "IntroductionDate",
 					"OriginDataTypeName": {
 						"TypeName": "date",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
 						"Properties": {
 							"DateFormat": "YYYY-MM-DD",
 							"HIVE_TYPE_STRING": "date"
@@ -55,8 +55,8 @@
 					"Name": "ActualAbandonmentDate",
 					"OriginDataTypeName": {
 						"TypeName": "date",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
 						"Properties": {
 							"DateFormat": "YYYY-MM-DD",
 							"HIVE_TYPE_STRING": "date"
@@ -68,8 +68,8 @@
 					"Name": "ProductGrossWeight",
 					"OriginDataTypeName": {
 						"TypeName": "decimal",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
 						"Precision": 18,
 						"Scale": 8,
 						"Properties": {
@@ -82,8 +82,8 @@
 					"Name": "ItemSku",
 					"OriginDataTypeName": {
 						"TypeName": "string",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
 						"Length": 20,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
@@ -95,8 +95,8 @@
 					"Name": "ListPrice",
 					"OriginDataTypeName": {
 						"TypeName": "decimal",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
 						"Precision": 18,
 						"Scale": 2,
 						"Properties": {
@@ -131,7 +131,7 @@
 			},
 			"Properties": {
 				"textinputformat.record.delimiter": ",",
-				"compression": "",
+				"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
 				"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 			},
 			"Compressed": false,
