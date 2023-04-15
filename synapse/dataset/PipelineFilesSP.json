@@ -1,0 +1,19 @@
+{
+	"name": "PipelineFilesSP",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "*",
+				"folderPath": "labs-dp-203/02/data/L3/data/pipelinesp",
+				"fileSystem": "files"
+			}
+		}
+	}
+}
