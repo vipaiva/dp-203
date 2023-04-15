@@ -2030,7 +2030,7 @@
 					"name": "dp-203/02-Serverless SQL/02-Demo-Query files using a serverless SQL pool"
 				},
 				"content": {
-					"query": "-- Demo: Query files using a serverless SQL pool\n-- Task: Use SQL to query CSV files\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakeweslbo.dfs.core.windows.net/files/labs-dp-500/01/data/*.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0'\n    ) AS [result]\n\n/*\nNote the results consist of columns named C1, C2, and so on. In this example, the CSV files do not include \nthe column headers. While it’s possible to work with the data using the generic column names that have been \nassigned, or by ordinal position, it will be easier to understand the data if you define a tabular schema. \nTo accomplish this, add a WITH clause to the OPENROWSET function as shown here (replacing datalakexxxxxxx with \nthe name of your data lake storage account), and then rerun the query\n*/\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakeweslbo.dfs.core.windows.net/files/labs-dp-500/01/data/*.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION='2.0'\n    )\n    WITH (\n        SalesOrderNumber VARCHAR(10) COLLATE Latin1_General_100_BIN2_UTF8,\n        SalesOrderLineNumber INT,\n        OrderDate DATE,\n        CustomerName VARCHAR(25) COLLATE Latin1_General_100_BIN2_UTF8,\n        EmailAddress VARCHAR(50) COLLATE Latin1_General_100_BIN2_UTF8,\n        Item VARCHAR(30) COLLATE Latin1_General_100_BIN2_UTF8,\n        Quantity INT,\n        UnitPrice DECIMAL(18,2),\n        TaxAmount DECIMAL (18,2)\n    ) AS [result]\n\n\n",
+					"query": "-- Demo: Query files using a serverless SQL pool\n-- Task: Use SQL to query CSV files\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-500/01/data/*.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0'\n    ) AS [result]\n\n/*\nNote the results consist of columns named C1, C2, and so on. In this example, the CSV files do not include \nthe column headers. While it’s possible to work with the data using the generic column names that have been \nassigned, or by ordinal position, it will be easier to understand the data if you define a tabular schema. \nTo accomplish this, add a WITH clause to the OPENROWSET function as shown here (replacing datalakexxxxxxx with \nthe name of your data lake storage account), and then rerun the query\n*/\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-500/01/data/*.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION='2.0'\n    )\n    WITH (\n        SalesOrderNumber VARCHAR(10) COLLATE Latin1_General_100_BIN2_UTF8,\n        SalesOrderLineNumber INT,\n        OrderDate DATE,\n        CustomerName VARCHAR(25) COLLATE Latin1_General_100_BIN2_UTF8,\n        EmailAddress VARCHAR(50) COLLATE Latin1_General_100_BIN2_UTF8,\n        Item VARCHAR(30) COLLATE Latin1_General_100_BIN2_UTF8,\n        Quantity INT,\n        UnitPrice DECIMAL(18,2),\n        TaxAmount DECIMAL (18,2)\n    ) AS [result]\n\n\n",
 					"metadata": {
 						"language": "sql"
 					},
@@ -6986,7 +6986,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "78916e14-e553-4de9-a3fd-1c2161e668bf"
+						"spark.autotune.trackingId": "75b9fcc8-b9be-4c21-8556-ce469ee939dd"
 					}
 				},
 				"metadata": {
@@ -7000,10 +7000,10 @@
 						"name": "python"
 					},
 					"a365ComputeOptions": {
-						"id": "/subscriptions/784f1210-8faf-4cf4-b9aa-e50fa084adce/resourceGroups/rg-dp-203/providers/Microsoft.Synapse/workspaces/synapse-weslbo/bigDataPools/sparkpool",
+						"id": "/subscriptions/073a4913-dc63-46b9-b676-fad837dab1ba/resourceGroups/rg-dp-203/providers/Microsoft.Synapse/workspaces/synapse-vipaiva/bigDataPools/sparkpool",
 						"name": "sparkpool",
 						"type": "Spark",
-						"endpoint": "https://synapse-weslbo.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
+						"endpoint": "https://synapse-vipaiva.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
 						"auth": {
 							"type": "AAD",
 							"authResource": "https://dev.azuresynapse.net"
@@ -7097,7 +7097,7 @@
 							"display(df.limit(10))"
 						],
 						"outputs": [],
-						"execution_count": 2
+						"execution_count": null
 					},
 					{
 						"cell_type": "markdown",
@@ -7138,7 +7138,7 @@
 							"display(df.limit(10))"
 						],
 						"outputs": [],
-						"execution_count": 3
+						"execution_count": null
 					},
 					{
 						"cell_type": "markdown",
@@ -7174,7 +7174,7 @@
 							"display(df_counts)"
 						],
 						"outputs": [],
-						"execution_count": 4
+						"execution_count": null
 					},
 					{
 						"cell_type": "markdown",
@@ -7568,8 +7568,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductName",
@@ -7586,8 +7585,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductName"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductShortDescription",
@@ -7604,8 +7602,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductShortDescription"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductDescription",
@@ -7622,8 +7619,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductDescription"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductInternalName",
@@ -7640,8 +7636,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductInternalName"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductModelName",
@@ -7658,8 +7653,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductModelName"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductBaseName",
@@ -7676,8 +7670,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductBaseName"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductCodeName",
@@ -7694,8 +7687,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductCodeName"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductIntendedUse",
@@ -7712,8 +7704,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductIntendedUse"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "IntroductionDate",
@@ -7730,8 +7721,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "IntroductionDate"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "FirstDateManufactured",
@@ -7748,8 +7738,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "FirstDateManufactured"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "PlannedAbandonmentDate",
@@ -7766,8 +7755,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "PlannedAbandonmentDate"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ActualAbandonmentDate",
@@ -7784,8 +7772,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ActualAbandonmentDate"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "GlobalTradeItemNumber",
@@ -7803,8 +7790,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "GlobalTradeItemNumber"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "GtinName",
@@ -7821,8 +7807,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "GtinName"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "EuropeanArticleNumber",
@@ -7840,8 +7825,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "EuropeanArticleNumber"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "UniversalProductCode",
@@ -7859,8 +7843,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "UniversalProductCode"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "GpcBrickId",
@@ -7876,8 +7859,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "GpcBrickId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ItemElectronicProductCode",
@@ -7895,8 +7877,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ItemElectronicProductCode"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ComponentPartIdentifier",
@@ -7913,8 +7894,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ComponentPartIdentifier"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "PluCode",
@@ -7932,8 +7912,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "PluCode"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductNetContent",
@@ -7949,8 +7928,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductNetContent"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "NetContentUomId",
@@ -7966,8 +7944,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "NetContentUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ResponsibilityCenterId",
@@ -7983,8 +7960,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ResponsibilityCenterId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "StorageInstructions",
@@ -8001,8 +7977,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "StorageInstructions"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ShelfLifeDays",
@@ -8018,8 +7993,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ShelfLifeDays"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ConsumerStorageInstructions",
@@ -8036,8 +8010,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ConsumerStorageInstructions"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductShippingInstructions",
@@ -8054,8 +8027,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductShippingInstructions"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ConsumerUsageInstructions",
@@ -8072,8 +8044,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ConsumerUsageInstructions"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "HealthClaimDescription",
@@ -8090,8 +8061,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "HealthClaimDescription"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "MarketingMessageDescription",
@@ -8108,8 +8078,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "MarketingMessageDescription"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "BundledProductIndicator",
@@ -8125,8 +8094,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "BundledProductIndicator"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "InformationLabelText",
@@ -8143,8 +8111,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "InformationLabelText"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "DescriptiveLabelText",
@@ -8161,8 +8128,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "DescriptiveLabelText"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "WarningInformationText",
@@ -8179,8 +8145,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "WarningInformationText"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "GradeLabelText",
@@ -8197,8 +8162,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "GradeLabelText"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "GovernmentWarningLabelText",
@@ -8215,8 +8179,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "GovernmentWarningLabelText"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "PatentNumber",
@@ -8233,8 +8196,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "PatentNumber"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "PatentDate",
@@ -8251,8 +8213,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "PatentDate"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "PatentExpirationDate",
@@ -8269,8 +8230,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "PatentExpirationDate"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "Trademark",
@@ -8286,8 +8246,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "Trademark"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductLogo",
@@ -8303,8 +8262,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductLogo"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductSymbol",
@@ -8320,8 +8278,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductSymbol"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "CopyrightNumber",
@@ -8338,8 +8295,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "CopyrightNumber"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "CopyrightDate",
@@ -8356,8 +8312,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "CopyrightDate"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductLicenserName",
@@ -8374,8 +8329,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductLicenserName"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "EligibleForExportIndicator",
@@ -8391,8 +8345,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "EligibleForExportIndicator"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductExportRestrictionIndicator",
@@ -8408,8 +8361,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductExportRestrictionIndicator"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductExportRestrictionStartDate",
@@ -8426,8 +8378,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductExportRestrictionStartDate"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductExportRestrictionEndDate",
@@ -8444,8 +8395,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductExportRestrictionEndDate"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductExportRestrictionDescription",
@@ -8462,8 +8412,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductExportRestrictionDescription"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "BaseProductQuantity",
@@ -8481,8 +8430,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "BaseProductQuantity"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductLength",
@@ -8500,8 +8448,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductLength"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductPlanogramLength",
@@ -8519,8 +8466,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductPlanogramLength"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductLengthUomId",
@@ -8536,8 +8482,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductLengthUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductWidth",
@@ -8555,8 +8500,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductWidth"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductPlanogramWidth",
@@ -8574,8 +8518,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductPlanogramWidth"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductWidthUomId",
@@ -8591,8 +8534,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductWidthUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductHeight",
@@ -8610,8 +8552,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductHeight"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductPlanogramHeight",
@@ -8629,8 +8570,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductPlanogramHeight"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductHeightUomId",
@@ -8646,8 +8586,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductHeightUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductVolume",
@@ -8665,8 +8604,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductVolume"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductVolumeUomId",
@@ -8682,8 +8620,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductVolumeUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductNetWeight",
@@ -8701,8 +8638,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductNetWeight"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductNetWeightUomId",
@@ -8718,8 +8654,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductNetWeightUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductGrossWeight",
@@ -8737,8 +8672,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductGrossWeight"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductGrossWeightUomId",
@@ -8754,8 +8688,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductGrossWeightUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductDrainedWeight",
@@ -8773,8 +8706,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductDrainedWeight"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductDrainedWeightUomId",
@@ -8790,8 +8722,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductDrainedWeightUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "MinimumStorageTemperature",
@@ -8809,8 +8740,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "MinimumStorageTemperature"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "MinimumStorageTemperatureUomId",
@@ -8826,8 +8756,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "MinimumStorageTemperatureUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "MaximumStorageTemperature",
@@ -8845,8 +8774,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "MaximumStorageTemperature"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "MaximumStorageTemperatureUomId",
@@ -8862,8 +8790,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "MaximumStorageTemperatureUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "MinimumStorageHumidity",
@@ -8881,8 +8808,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "MinimumStorageHumidity"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "MinimumStorageHumidityUomId",
@@ -8898,8 +8824,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "MinimumStorageHumidityUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "MaximumStorageHumidity",
@@ -8917,8 +8842,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "MaximumStorageHumidity"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "MaximumStorageHumidityUomId",
@@ -8934,8 +8858,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "MaximumStorageHumidityUomId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ReturnPolicyStatement",
@@ -8952,8 +8875,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ReturnPolicyStatement"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ReturnPolicyPeriodInDays",
@@ -8969,8 +8891,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ReturnPolicyPeriodInDays"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ReplacementPolicyStatement",
@@ -8987,8 +8908,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ReplacementPolicyStatement"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ReplacementPeriodInDays",
@@ -9004,8 +8924,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ReplacementPeriodInDays"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ExchangePolicyStatement",
@@ -9022,8 +8941,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ExchangePolicyStatement"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ExchangePolicyPeriodInDays",
@@ -9039,8 +8957,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ExchangePolicyPeriodInDays"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductMustBeDeliveredDaysPriorToExpirationDate",
@@ -9057,8 +8974,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductMustBeDeliveredDaysPriorToExpirationDate"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "WarrantyId",
@@ -9074,8 +8990,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "WarrantyId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ItemSku",
@@ -9092,8 +9007,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ItemSku"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "PrimaryBrandId",
@@ -9109,8 +9023,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "PrimaryBrandId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ProductTypeId",
@@ -9126,8 +9039,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ProductTypeId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "PackageTypeId",
@@ -9143,8 +9055,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "PackageTypeId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "PrimaryCountryOfOriginCountryId",
@@ -9160,8 +9071,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "PrimaryCountryOfOriginCountryId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "GeographicAreaOfOriginGeographicAreaId",
@@ -9177,8 +9087,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "GeographicAreaOfOriginGeographicAreaId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "PrimaryColorId",
@@ -9194,8 +9103,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "PrimaryColorId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "FlavorTypeId",
@@ -9211,8 +9119,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "FlavorTypeId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "ScentTypeId",
@@ -9228,8 +9135,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "ScentTypeId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "SuitableAgeRatingId",
@@ -9245,8 +9151,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "SuitableAgeRatingId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									},
 									{
 										"Name": "SeasonalUsageId",
@@ -9262,8 +9167,7 @@
 										"BaseAttributeReference": {
 											"Entity": "RetailProduct.cdm.json/RetailProduct",
 											"Name": "SeasonalUsageId"
-										},
-										"DeltaFormatInvalidMessages": []
+										}
 									}
 								],
 								"Format": {
@@ -9274,8 +9178,8 @@
 									"Properties": {
 										"path": "abfss://files@datalakevipaiva.dfs.core.windows.net/RetailDB/RetailProduct",
 										"delimiter": ",",
-										"multiLine": "false",
 										"firstRowAsHeader": "false",
+										"multiLine": "false",
 										"serialization.format": "1",
 										"escape": "\\",
 										"quote": "\"",
