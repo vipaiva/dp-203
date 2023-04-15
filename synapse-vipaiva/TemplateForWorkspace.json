@@ -2054,7 +2054,7 @@
 					"name": "dp-203/01-Intro to data engineering/01-Lab-Explore Azure Synapse Analytics"
 				},
 				"content": {
-					"query": "-- Lab: Explore Azure Synapse Analytics\n-- Task: Use a serverless SQL pool to analyze data\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakeweslbo.dfs.core.windows.net/files/labs-dp-203/01/product_data/products.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0'\n        --,HEADER_ROW = TRUE -- Note the results consist of four columns named C1, C2, C3, and C4; \n    ) AS [result]           -- and that the first row in the results contains the names of the data fields. To fix this problem, add a HEADER_ROW = TRUE\n\n\nSELECT\n    Category, COUNT(*) AS ProductCount\nFROM\n    OPENROWSET(\n        BULK 'https://datalakeweslbo.dfs.core.windows.net/files/labs-dp-203/01/product_data/products.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION='2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]\nGROUP BY Category\n\n-- select the Chart view, and then select the following settings for the chart\n-- Chart type: Column\n-- Category colunn: Category\n-- legend Series columns: ProductCount",
+					"query": "-- Lab: Explore Azure Synapse Analytics\n-- Task: Use a serverless SQL pool to analyze data\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/01/product_data/products.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0'\n        --,HEADER_ROW = TRUE -- Note the results consist of four columns named C1, C2, C3, and C4; \n    ) AS [result]           -- and that the first row in the results contains the names of the data fields. To fix this problem, add a HEADER_ROW = TRUE\n\n\nSELECT\n    Category, COUNT(*) AS ProductCount\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/01/product_data/products.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION='2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]\nGROUP BY Category\n\n-- select the Chart view, and then select the following settings for the chart\n-- Chart type: Column\n-- Category colunn: Category\n-- legend Series columns: ProductCount",
 					"metadata": {
 						"language": "sql"
 					},
@@ -7507,43 +7507,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/sparkpool')]",
-			"type": "Microsoft.Synapse/workspaces/bigDataPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"autoPause": {
-					"enabled": true,
-					"delayInMinutes": 15
-				},
-				"autoScale": {
-					"enabled": true,
-					"maxNodeCount": 4,
-					"minNodeCount": 3
-				},
-				"nodeCount": 0,
-				"nodeSize": "Small",
-				"nodeSizeFamily": "MemoryOptimized",
-				"sparkVersion": "3.2",
-				"isComputeIsolationEnabled": false,
-				"sessionLevelPackagesEnabled": false,
-				"annotations": []
-			},
-			"dependsOn": [],
-			"location": "uksouth"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/sqldwh')]",
-			"type": "Microsoft.Synapse/workspaces/sqlPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"collation": "SQL_Latin1_General_CP1_CI_AS",
-				"maxSizeBytes": 263882790666240,
-				"annotations": []
-			},
-			"dependsOn": [],
-			"location": "uksouth"
-		},
-		{
 			"name": "[concat(parameters('workspaceName'), '/RetailDB')]",
 			"type": "Microsoft.Synapse/workspaces/databases",
 			"apiVersion": "2019-06-01-preview",
@@ -7594,10 +7557,6 @@
 									{
 										"Name": "ProductId",
 										"Description": "The unique identifier of a Product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
@@ -7606,15 +7565,15 @@
 												"HIVE_TYPE_STRING": "long"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductId"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductName",
 										"Description": "The name of the Product, which normally corresponds to the 'marketing name' of the Product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductName"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -7623,16 +7582,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductName"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductShortDescription",
 										"Description": "The short description of the Product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductShortDescription"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -7641,16 +7600,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductShortDescription"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductDescription",
 										"Description": "The description of the Product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductDescription"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -7659,16 +7618,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductDescription"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductInternalName",
 										"Description": "The internal name by which a Product is known.\n\nThis normally approximates the business name by which the public identifies the Product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductInternalName"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -7677,16 +7636,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductInternalName"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductModelName",
 										"Description": "The name of the Product Model.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductModelName"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -7695,16 +7654,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductModelName"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductBaseName",
 										"Description": "The name of the Product, which normally corresponds to the 'marketing name' of the Product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductBaseName"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -7713,16 +7672,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductBaseName"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductCodeName",
 										"Description": "The internal code name by which the Product is known within the company.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductCodeName"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -7732,15 +7691,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductCodeName"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductIntendedUse",
 										"Description": "The intended use of the product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductIntendedUse"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -7750,15 +7709,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductIntendedUse"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "IntroductionDate",
 										"Description": "The date that the Product was introduced for sale.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "IntroductionDate"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
@@ -7767,16 +7726,16 @@
 												"DateFormat": "YYYY-MM-DD",
 												"HIVE_TYPE_STRING": "date"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "IntroductionDate"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "FirstDateManufactured",
 										"Description": "The date that the Product was first manufactured by the Manufacturer.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "FirstDateManufactured"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
@@ -7785,16 +7744,16 @@
 												"DateFormat": "YYYY-MM-DD",
 												"HIVE_TYPE_STRING": "date"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "FirstDateManufactured"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "PlannedAbandonmentDate",
 										"Description": "The planned date to discontinue marketing the product.    \n\nAbandonment is a component in the decline stage of the product's life cycle characterized by a reduced market demand for the product and an increased number of competing products with similar characteristics.\n\nThere are three (3) strategies for abandoning a product:\n\n(1)  Reduced marketing and expenditures to maintain profits.\n\n(2)  Concentrating on the strongest market segments and eliminating the weaker market segments\n\n(3)  Maintain the marketing level until the product is discontinued.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "PlannedAbandonmentDate"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
@@ -7803,16 +7762,16 @@
 												"DateFormat": "YYYY-MM-DD",
 												"HIVE_TYPE_STRING": "date"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "PlannedAbandonmentDate"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ActualAbandonmentDate",
 										"Description": "The actual date that the marketing of the product was discontinued. \n\nAbandonment is a component in the decline stage of the product's life cycle characterized by a reduced market demand for the product and an increased number of competing products with similar characteristics.\n\nThere are three (3) strategies for abandoning a product:\n\n(1)  Reduced marketing and expenditures to maintain profits.\n\n(2)  Concentrating on the strongest market segments and eliminating the weaker market segments\n\n(3)  Maintain the marketing level until the product is discontinued.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ActualAbandonmentDate"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
@@ -7822,15 +7781,15 @@
 												"HIVE_TYPE_STRING": "date"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ActualAbandonmentDate"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "GlobalTradeItemNumber",
 										"Description": "The Global Trade Item Number (GTIN) is an identifier for trade items that was developed by GS1.\n\nA GTIN can be assigned to only one brick.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "GlobalTradeItemNumber"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -7841,15 +7800,15 @@
 												"HIVE_TYPE_STRING": "decimal"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "GlobalTradeItemNumber"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "GtinName",
 										"Description": "A note, comment or additional information regarding the Product GTIN.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "GtinName"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -7859,15 +7818,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "GtinName"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "EuropeanArticleNumber",
 										"Description": "A 13 digit barcoding standard which is a superset of the original 12-digit Universal Product Code (UPC).\n\naka International Article Number (abbreviation of EAN retained)",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "EuropeanArticleNumber"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -7878,15 +7837,15 @@
 												"HIVE_TYPE_STRING": "decimal"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "EuropeanArticleNumber"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "UniversalProductCode",
 										"Description": "A system that identifies products by type and by manufacturer.  \n\nA UPC consists of eleven (11) digits.  Six (6) indicate the Manufacturer and five (5) digits describe the product.\n\nUPCs appear on product packages as bar codes, which are graphic symbols that are read by optical scanner devices.   \n\nUPCs are assigned by the Uniform Code Council of Dayton, Ohio.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "UniversalProductCode"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -7897,15 +7856,15 @@
 												"HIVE_TYPE_STRING": "decimal"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "UniversalProductCode"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "GpcBrickId",
 										"Description": "The unique identifier of a GPC Brick.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "GpcBrickId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -7914,15 +7873,15 @@
 												"HIVE_TYPE_STRING": "integer"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "GpcBrickId"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ItemElectronicProductCode",
 										"Description": "EPC is the RFID version of the UPC barcode. \nEPC is intended to be used for specific product identification. However, EPC goes beyond UPC by not only identifying the product as an SKU, but also providing access to additional data about the origin and history of the specific units. \nThe EPC tag itself identifies the manufacturer, product, version, and serial number. It's the serial number that takes EPC to the next level. \nThis is the key to data related to specific lots/batches as well as potentially tracking the specific unit's history as it moves through the supply chain.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ItemElectronicProductCode"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -7933,15 +7892,15 @@
 												"HIVE_TYPE_STRING": "decimal"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ItemElectronicProductCode"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ComponentPartIdentifier",
 										"Description": "The Component / Part Identifier (CPID) is used to identify components or parts that are used in the assembly of a larger item. The CPID is part of the GS1 system of standards.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ComponentPartIdentifier"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -7951,15 +7910,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ComponentPartIdentifier"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "PluCode",
 										"Description": "The PLU or Price Look-Up code is a 4- or 5-digit number that is primarily used on fresh produce items and will typically appear on a small sticker that is applied to an individual piece of fresh produce. \n\nThe PLU code identifies produce items based upon the commodity, variety and size group. \n\nThey are used by supermarkets to make check-out and inventory control easier, faster and more accurate. \n\nThese numbers are assigned by the International Federation for Produce Standards (IFPS)\n\nEx: WHITE FLESH PEACHES\nPLU Code = 4400",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "PluCode"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -7970,15 +7929,15 @@
 												"HIVE_TYPE_STRING": "decimal"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "PluCode"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductNetContent",
 										"Description": "The standard product length.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductNetContent"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -7986,16 +7945,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductNetContent"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "NetContentUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "NetContentUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8004,15 +7963,15 @@
 												"HIVE_TYPE_STRING": "integer"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "NetContentUomId"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ResponsibilityCenterId",
 										"Description": "The unique identifier of a Responsibility Center.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ResponsibilityCenterId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8021,15 +7980,15 @@
 												"HIVE_TYPE_STRING": "integer"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ResponsibilityCenterId"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "StorageInstructions",
 										"Description": "Statements regarding how the product should be stored.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "StorageInstructions"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8039,15 +7998,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "StorageInstructions"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ShelfLifeDays",
 										"Description": "The amount of time that a product can be stored before it can no longer be safely consumed or sold.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ShelfLifeDays"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8056,15 +8015,15 @@
 												"HIVE_TYPE_STRING": "integer"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ShelfLifeDays"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ConsumerStorageInstructions",
 										"Description": "Statements regarding how the product should be stored by the consumer.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ConsumerStorageInstructions"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8073,16 +8032,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ConsumerStorageInstructions"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductShippingInstructions",
 										"Description": "Statements regarding how the product should be shipped.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductShippingInstructions"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8091,16 +8050,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductShippingInstructions"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ConsumerUsageInstructions",
 										"Description": "Statements regarding how the product should be used by the consumer.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ConsumerUsageInstructions"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8109,16 +8068,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ConsumerUsageInstructions"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "HealthClaimDescription",
 										"Description": "A health claim regarding the product as per regulations of the target market.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "HealthClaimDescription"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8127,16 +8086,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "HealthClaimDescription"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "MarketingMessageDescription",
 										"Description": "A market message that is present on the packaging of the product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "MarketingMessageDescription"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8146,15 +8105,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "MarketingMessageDescription"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "BundledProductIndicator",
 										"Description": "Indicates whether a Product is comprised of a bundle of other Products.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "BundledProductIndicator"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "boolean",
 											"IsComplexType": false,
@@ -8163,15 +8122,15 @@
 												"HIVE_TYPE_STRING": "boolean"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "BundledProductIndicator"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "InformationLabelText",
 										"Description": "The label text that identifies the care, use, preparation and handling or the product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "InformationLabelText"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8180,16 +8139,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "InformationLabelText"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "DescriptiveLabelText",
 										"Description": "The label text that describes significant characteristics and benefits.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "DescriptiveLabelText"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8198,16 +8157,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "DescriptiveLabelText"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "WarningInformationText",
 										"Description": "The text of the warning label, if any, appearing upon the product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "WarningInformationText"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8216,16 +8175,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "WarningInformationText"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "GradeLabelText",
 										"Description": "The label text that identifies Product quality with letters, number or conditions.\n\nExamples:\n\n-  Grade A\n-  Prime\n-  #1",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "GradeLabelText"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8234,16 +8193,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "GradeLabelText"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "GovernmentWarningLabelText",
 										"Description": "The US Government (or foreign government) label text that addressing the US legal requirements of the Product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "GovernmentWarningLabelText"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8253,15 +8212,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "GovernmentWarningLabelText"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "PatentNumber",
 										"Description": "The patent that is associated with the Product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "PatentNumber"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8271,15 +8230,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "PatentNumber"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "PatentDate",
 										"Description": "The date that the Patent was granted.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "PatentDate"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
@@ -8288,16 +8247,16 @@
 												"DateFormat": "YYYY-MM-DD",
 												"HIVE_TYPE_STRING": "date"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "PatentDate"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "PatentExpirationDate",
 										"Description": "The date that the patent is scheduled to expire.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "PatentExpirationDate"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
@@ -8307,15 +8266,15 @@
 												"HIVE_TYPE_STRING": "date"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "PatentExpirationDate"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "Trademark",
 										"Description": "A 'trademark' is a brand name or brand mark that is given legal protection.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "Trademark"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "binary",
 											"IsComplexType": false,
@@ -8323,16 +8282,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "binary"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "Trademark"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductLogo",
 										"Description": "A design, symbol or series of words that identifies the product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductLogo"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "binary",
 											"IsComplexType": false,
@@ -8340,16 +8299,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "binary"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductLogo"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductSymbol",
 										"Description": "A symbol by which the product is known.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductSymbol"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "binary",
 											"IsComplexType": false,
@@ -8358,15 +8317,15 @@
 												"HIVE_TYPE_STRING": "binary"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductSymbol"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "CopyrightNumber",
 										"Description": "The unique identifier (number) of the copyright granted.\n\nA copyright is legal protection given to a work so that it can only be published or sold by the copyright holder.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "CopyrightNumber"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8376,15 +8335,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "CopyrightNumber"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "CopyrightDate",
 										"Description": "The date that the copyright was granted.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "CopyrightDate"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
@@ -8394,15 +8353,15 @@
 												"HIVE_TYPE_STRING": "date"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "CopyrightDate"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductLicenserName",
 										"Description": "The name of the company that receives a flat fee or royalty for selling the rights to use a trademark, Patent, manufacturing right or process for the Product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductLicenserName"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8412,15 +8371,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductLicenserName"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "EligibleForExportIndicator",
 										"Description": "Indicates that the product is eligible for export to foreign countries without restriction.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "EligibleForExportIndicator"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "boolean",
 											"IsComplexType": false,
@@ -8428,16 +8387,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "boolean"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "EligibleForExportIndicator"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductExportRestrictionIndicator",
 										"Description": "Indicates that exportation of the product is restricted.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductExportRestrictionIndicator"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "boolean",
 											"IsComplexType": false,
@@ -8446,15 +8405,15 @@
 												"HIVE_TYPE_STRING": "boolean"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductExportRestrictionIndicator"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductExportRestrictionStartDate",
 										"Description": "The period start date for which the associated restriction is in effect.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductExportRestrictionStartDate"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
@@ -8463,16 +8422,16 @@
 												"DateFormat": "YYYY-MM-DD",
 												"HIVE_TYPE_STRING": "date"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductExportRestrictionStartDate"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductExportRestrictionEndDate",
 										"Description": "The period end date for which the associated restriction is in effect.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductExportRestrictionEndDate"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
@@ -8482,15 +8441,15 @@
 												"HIVE_TYPE_STRING": "date"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductExportRestrictionEndDate"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductExportRestrictionDescription",
 										"Description": "A description or statement defining the export restriction(s) placed upon the Product.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductExportRestrictionDescription"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8500,15 +8459,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductExportRestrictionDescription"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "BaseProductQuantity",
 										"Description": "The number of base product items contained in the product packaging.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "BaseProductQuantity"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8519,15 +8478,15 @@
 												"HIVE_TYPE_STRING": "decimal"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "BaseProductQuantity"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductLength",
 										"Description": "The standard product length.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductLength"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8537,16 +8496,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductLength"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductPlanogramLength",
 										"Description": "The standard product length.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductPlanogramLength"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8556,16 +8515,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductPlanogramLength"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductLengthUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductLengthUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8573,16 +8532,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductLengthUomId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductWidth",
 										"Description": "The standard product width.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductWidth"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8592,16 +8551,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductWidth"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductPlanogramWidth",
 										"Description": "The standard product width.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductPlanogramWidth"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8611,16 +8570,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductPlanogramWidth"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductWidthUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductWidthUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8628,16 +8587,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductWidthUomId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductHeight",
 										"Description": "The standard product height.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductHeight"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8647,16 +8606,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductHeight"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductPlanogramHeight",
 										"Description": "The standard product height.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductPlanogramHeight"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8666,16 +8625,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductPlanogramHeight"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductHeightUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductHeightUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8683,16 +8642,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductHeightUomId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductVolume",
 										"Description": "The standard product volume.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductVolume"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8702,16 +8661,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductVolume"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductVolumeUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductVolumeUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8719,16 +8678,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductVolumeUomId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductNetWeight",
 										"Description": "The net product weight.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductNetWeight"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8738,16 +8697,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductNetWeight"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductNetWeightUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductNetWeightUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8755,16 +8714,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductNetWeightUomId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductGrossWeight",
 										"Description": "The gross product weight.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductGrossWeight"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8774,16 +8733,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductGrossWeight"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductGrossWeightUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductGrossWeightUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8791,16 +8750,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductGrossWeightUomId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductDrainedWeight",
 										"Description": "The drained product weight.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductDrainedWeight"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8810,16 +8769,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductDrainedWeight"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductDrainedWeightUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductDrainedWeightUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8827,16 +8786,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductDrainedWeightUomId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "MinimumStorageTemperature",
 										"Description": "The minimum temperature at which the product may be stored.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "MinimumStorageTemperature"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8846,16 +8805,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "MinimumStorageTemperature"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "MinimumStorageTemperatureUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "MinimumStorageTemperatureUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8863,16 +8822,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "MinimumStorageTemperatureUomId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "MaximumStorageTemperature",
 										"Description": "The maximum temperature at which the product may be stored.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "MaximumStorageTemperature"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8882,16 +8841,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "MaximumStorageTemperature"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "MaximumStorageTemperatureUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "MaximumStorageTemperatureUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8899,16 +8858,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "MaximumStorageTemperatureUomId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "MinimumStorageHumidity",
 										"Description": "The minimum humidity that the product may be stored at.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "MinimumStorageHumidity"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8918,16 +8877,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "decimal"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "MinimumStorageHumidity"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "MinimumStorageHumidityUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "MinimumStorageHumidityUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8936,15 +8895,15 @@
 												"HIVE_TYPE_STRING": "integer"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "MinimumStorageHumidityUomId"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "MaximumStorageHumidity",
 										"Description": "The maximum humidity that the product may be stored at.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "MaximumStorageHumidity"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
@@ -8955,15 +8914,15 @@
 												"HIVE_TYPE_STRING": "decimal"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "MaximumStorageHumidity"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "MaximumStorageHumidityUomId",
 										"Description": "The unique identifier of a Unit Of Measure.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "MaximumStorageHumidityUomId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -8971,16 +8930,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "MaximumStorageHumidityUomId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ReturnPolicyStatement",
 										"Description": "A statement detailing the product return policy.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ReturnPolicyStatement"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -8989,16 +8948,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ReturnPolicyStatement"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ReturnPolicyPeriodInDays",
 										"Description": "The period in days allowed under the associated return policy.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ReturnPolicyPeriodInDays"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9006,16 +8965,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ReturnPolicyPeriodInDays"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ReplacementPolicyStatement",
 										"Description": "A statement detailing the product replacement policy.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ReplacementPolicyStatement"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -9024,16 +8983,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ReplacementPolicyStatement"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ReplacementPeriodInDays",
 										"Description": "The period in days allowed under the associated replacement policy.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ReplacementPeriodInDays"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9042,15 +9001,15 @@
 												"HIVE_TYPE_STRING": "integer"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ReplacementPeriodInDays"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ExchangePolicyStatement",
 										"Description": "A statement detailing the product exchange policy.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ExchangePolicyStatement"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -9060,15 +9019,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ExchangePolicyStatement"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ExchangePolicyPeriodInDays",
 										"Description": "The period in days allowed under the associated exchange policy.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ExchangePolicyPeriodInDays"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9077,15 +9036,15 @@
 												"HIVE_TYPE_STRING": "integer"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ExchangePolicyPeriodInDays"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductMustBeDeliveredDaysPriorToExpirationDate",
 										"Description": "The number of days prior to the expiration date of the product that the product must be delivered to the an agreed upon point in the distribution system.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductMustBeDeliveredDaysPriorToExpirationDate"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
@@ -9095,15 +9054,15 @@
 												"HIVE_TYPE_STRING": "date"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductMustBeDeliveredDaysPriorToExpirationDate"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "WarrantyId",
 										"Description": "The unique identifier of a Warranty.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "WarrantyId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9112,15 +9071,15 @@
 												"HIVE_TYPE_STRING": "integer"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "WarrantyId"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ItemSku",
 										"Description": "The Stock Keeping Unit identifier, which is typically used for inventory-related activities.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ItemSku"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
@@ -9130,15 +9089,15 @@
 												"HIVE_TYPE_STRING": "string"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ItemSku"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "PrimaryBrandId",
 										"Description": "The unique identifier of a Brand.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "PrimaryBrandId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9146,16 +9105,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "PrimaryBrandId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductTypeId",
 										"Description": "The unique identifier of a Product Type.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ProductTypeId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9163,16 +9122,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ProductTypeId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "PackageTypeId",
 										"Description": "The unique identifier of a Package Type.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "PackageTypeId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9180,16 +9139,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "PackageTypeId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "PrimaryCountryOfOriginCountryId",
 										"Description": "The unique identifier of the Country.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "PrimaryCountryOfOriginCountryId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9198,15 +9157,15 @@
 												"HIVE_TYPE_STRING": "integer"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "PrimaryCountryOfOriginCountryId"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "GeographicAreaOfOriginGeographicAreaId",
 										"Description": "The unique identifier of a Geographic Area.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "GeographicAreaOfOriginGeographicAreaId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9215,15 +9174,15 @@
 												"HIVE_TYPE_STRING": "integer"
 											}
 										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "GeographicAreaOfOriginGeographicAreaId"
+										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "PrimaryColorId",
 										"Description": "The unique identifier of a color.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "PrimaryColorId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9231,16 +9190,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "PrimaryColorId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "FlavorTypeId",
 										"Description": "The unique identifier of a Flavor Type.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "FlavorTypeId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9248,16 +9207,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "FlavorTypeId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ScentTypeId",
 										"Description": "The unique identifier of a Scent Type.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "ScentTypeId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9265,16 +9224,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "ScentTypeId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "SuitableAgeRatingId",
 										"Description": "The unique identifier of a suitable age rating.",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "SuitableAgeRatingId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9282,16 +9241,16 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "SuitableAgeRatingId"
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "SeasonalUsageId",
 										"Description": "The unique identifier of a seasonal usage for the associated product.\n\nEx:\n- Summer\n- Fall\n- Winter\n- Spring\n- All seasons",
-										"BaseAttributeReference": {
-											"Entity": "RetailProduct.cdm.json/RetailProduct",
-											"Name": "SeasonalUsageId"
-										},
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
@@ -9299,6 +9258,10 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
+										},
+										"BaseAttributeReference": {
+											"Entity": "RetailProduct.cdm.json/RetailProduct",
+											"Name": "SeasonalUsageId"
 										},
 										"DeltaFormatInvalidMessages": []
 									}
@@ -9341,8 +9304,7 @@
 								"Description": "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.    That product is the sum of all physical, psychological, symbolic, and service attributes associated with it.\n\nThere are two basic types of products:\n\n- Tangible (physical)\n- Intangible (non-physical) such as services\n\nA service is a non-material or intangible product - such as professional consultancy, maintenance service, repair service etc.\nEach product has its own benefits, application, brand name, and packaging that gives it its own identity and distinguishing characteristics.\n\nEvery business or organization has business rules that define precisely what a product is.    While we intuitively know what a product is, we must quantify that knowledge and associated business rules with consistent definitions that can be implemented within the organization in strategies and applications.\n\nA product typically goes through five stages of development:\n\n(1) Idea Stage - involving a thorough evaluation of the potential product\n\n(2) Concept Stage - determines customer acceptance by testing and presentation to consumers and distribution channel members.   Specific aspects regarding quality, dependability, reliability, warranty, packaging, service, pricing, terms of sale, sales and distribution channels, advertising and promotions are evaluated.\n\n(3) Product Development Stage - transforms the prototype product into an actual product for mass sale.   This stage requires close interaction between both marketing and manufacturing.\n\n(4) Test Marketing Stage - may or may not be used since it is an expensive and time-consuming process.  Test marketing involves evaluating various product options and alternatives.\n\n(5) Commercialization - It is very expensive to launch a new product so commercialization only applies to those specific products that are actually going to be sold to the market.\n\nProducts tend to be categorized as either:  Industrial goods and consumer goods\n\nIndustrial goods are used to produce other products .\n\nIndustrial goods may be further divided into:\n\n- Raw materials\n- Equipment\n- Pre-built materials \n- Supplies.\n\nConsumer goods are intended for consumption by the general public.\n\nConsumer goods may be further divided into:\n\n- Durable goods\n- Nondurable goods\n- Packaged goods\n\nA product may be a member of a product family or product line.\n\nA product family is a grouping of products or services that are related to each other by common function, functionality, design platform or similar characteristics.\n\nMembers of a product family frequently have many common parts and assemblies.\n\nProduct families are the highest level of grouping for forecasting, capacity planning or related functions.\n\nEx:\nThe Apple Macintosh family of products consists of the product lines:\n- Mac mini\n- MacBook Pro\n- Mac Pro\n\nA product line is a grouping of products that are closely related in usage, functionality or marketing characteristics.\n\nA Product Family typically is created to address one or five functions:\n\n1. To increase profits and not erode the sales of existing products\n\n2. To attract additional Markets or Market Segments\n\n3. To counter competitor's products\n\n4. To fill a gap in an existing Product Family.\n\n5. To promote sales of other products in the family line\n\nLine Depth refers to the number of products in the product line.\n\nLine consistency refers to how closely related the products are that make up the product line.\n\nLine vulnerability refers to the percentage of sales or profits that are derived from only a few products in the product line.\n\nProduct width refers to the number of different product lines sold by a company.\n\nProduct mix refers to the total number of products sold in all product lines.\n\nLine extension refers to the adding of a new product to a line.\n\n\"Trading up or brand leveraging\" refers to adding a product of better quality to a product line than the other products in that line.\n\n\"Trading down\" refers to adding a product of lesser quality to a product line than the other products in that line.\n\nIf a line of products is sold with the same brand name, this is referred to as family branding.\nStrategy and decisions regarding a product line are usually incorporated in a high-level marketing plan addressing product line strategy, sales, channels, distribution channels, pricing and related issues.\nA product-line manager is responsible for a product line and supervises several product managers who are responsible for individual products within the line.\nProduct-line managers typically have the following responsibilities:\n- Expansion and composition of a product line\n- Evaluate the effects of product mixes on the profitability of other items in the line\n- Planning and allocation of resources to individual products in the line\nA product is normally associated with a brand strategy - manufacturer, private or generic.\n\n1. Manufacturer-  or 'national' branding in which the brand is assigned by the manufacturer of the Product.\n\n2. Private - or 'dealer' branding in which the brand is assigned by the retailer or wholesaler of the Product.\n\n3. Generic - in which the Product is not marked with any identification.   Generic brands are a means for manufacturers to increase profits by saving on advertising, packaging or other costs associated with manufacturer or private branding.\n\nA brand is name, term, sign, symbol or design or a combination of these which identify the goods or services and differentiate them from those of competitors'\n\nA Trade mark is a brand or some part of the brand that is given legal protection because it is capable of exclusive appropriation and representation.\n\nManufacturers can use their own brands (known as Manufacturers' brands) or brands of their distributors (Distributors' brands).\n\nManufacturers/ distributors use brand names for a variety of reasons ranging from simple identification purposes to having legal protection for unique features of the products from imitations.\n\nBrands help consumers recognize certain quality parameters. In some cases, brands are just used to endow the product with unique story and character which itself can be a basis for product differentiation.\n\nIndividual brands have their own identity and the corporate or common name is not used to promote its equity.\n\nIndividual branding requires more expensive advertising and brand extensive brand creation investments.  By extension, each new brand does not benefit from the positive perceptions of earlier brands.\n\nBy contrast, family branding has several advantages.\n\nEach new product is quickly associated with the other products and brand in terms of quality and benefits.\n\nReduced or eliminated time for name identification and advertising for name recognition purposes.",
 								"DisplayFolderInfo": "{\"name\":\"Product\",\"colorCode\":\"#BD4B37\"}",
 								"PrimaryKeys": "ProductId",
-								"spark.sql.sources.provider": "csv",
-								"sql:IsAppendOnly": false
+								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
 							"Temporary": false,
@@ -9355,6 +9317,43 @@
 				]
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/sparkpool')]",
+			"type": "Microsoft.Synapse/workspaces/bigDataPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"autoPause": {
+					"enabled": true,
+					"delayInMinutes": 15
+				},
+				"autoScale": {
+					"enabled": true,
+					"maxNodeCount": 4,
+					"minNodeCount": 3
+				},
+				"nodeCount": 0,
+				"nodeSize": "Small",
+				"nodeSizeFamily": "MemoryOptimized",
+				"sparkVersion": "3.2",
+				"isComputeIsolationEnabled": false,
+				"sessionLevelPackagesEnabled": false,
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "uksouth"
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/sqldwh')]",
+			"type": "Microsoft.Synapse/workspaces/sqlPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"collation": "SQL_Latin1_General_CP1_CI_AS",
+				"maxSizeBytes": 263882790666240,
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "uksouth"
 		}
 	]
 }
