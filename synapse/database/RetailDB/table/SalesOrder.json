@@ -15,10 +15,11 @@
 			"Columns": [
 				{
 					"Name": "SalesOrderId",
+					"Description": "The unique identifier of an order.",
 					"OriginDataTypeName": {
 						"TypeName": "long",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
@@ -26,24 +27,26 @@
 					"DeltaFormatInvalidMessages": []
 				},
 				{
-					"Name": "C2",
+					"Name": "OrderDate",
+					"Description": "The date of the order.",
 					"OriginDataTypeName": {
 						"TypeName": "timestamp",
-						"IsComplexType": false,
 						"IsNullable": true,
+						"IsComplexType": false,
 						"Properties": {
-							"TimestampFormat": "YYYY-MM-DD HH:MM:SS.fffffffff",
+							"TimestampFormat": "yyyy-MM-dd",
 							"HIVE_TYPE_STRING": "timestamp"
 						}
 					},
 					"DeltaFormatInvalidMessages": []
 				},
 				{
-					"Name": "C3",
+					"Name": "LineItemId",
+					"Description": "The ID of an individual line item.",
 					"OriginDataTypeName": {
 						"TypeName": "long",
+						"IsNullable": false,
 						"IsComplexType": false,
-						"IsNullable": true,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
@@ -51,11 +54,12 @@
 					"DeltaFormatInvalidMessages": []
 				},
 				{
-					"Name": "C4",
+					"Name": "CustomerId",
+					"Description": "The customer.",
 					"OriginDataTypeName": {
 						"TypeName": "long",
-						"IsComplexType": false,
 						"IsNullable": true,
+						"IsComplexType": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
@@ -63,11 +67,12 @@
 					"DeltaFormatInvalidMessages": []
 				},
 				{
-					"Name": "C5",
+					"Name": "ProductId",
+					"Description": "The product.",
 					"OriginDataTypeName": {
 						"TypeName": "long",
-						"IsComplexType": false,
 						"IsNullable": true,
+						"IsComplexType": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
@@ -75,11 +80,12 @@
 					"DeltaFormatInvalidMessages": []
 				},
 				{
-					"Name": "C6",
+					"Name": "Quantity",
+					"Description": "The order quantity.",
 					"OriginDataTypeName": {
 						"TypeName": "long",
-						"IsComplexType": false,
 						"IsNullable": true,
+						"IsComplexType": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
@@ -112,7 +118,7 @@
 			},
 			"Properties": {
 				"textinputformat.record.delimiter": ",",
-				"compression": "",
+				"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
 				"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 			},
 			"Compressed": false,
@@ -121,7 +127,7 @@
 		"Properties": {
 			"Description": "",
 			"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-			"PrimaryKeys": "",
+			"PrimaryKeys": "SalesOrderId,LineItemId",
 			"spark.sql.sources.provider": "csv"
 		},
 		"Retention": 0,
