@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "*",
-				"folderPath": "labs-dp-203/02/data/L3/data/pipelinesp",
+				"folderPath": "labs-dp-203/02/data/L3/data/yearlysalespipeline",
 				"fileSystem": "files"
 			}
 		}

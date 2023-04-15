@@ -1,0 +1,17 @@
+{
+	"name": "04-Create SP Pipeline",
+	"properties": {
+		"content": {
+			"query": "-- Lab: Transform files using a serverless SQL pool\n-- Task: Create Stored Procedure\n\nUSE Sales;\nGO;\n\n-- External data is in the Files container in the data lake\nCREATE EXTERNAL DATA SOURCE sales_data WITH (\n    LOCATION = 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/02/data/'\n);\nGO;\n\n-- Format for table files\nCREATE EXTERNAL FILE FORMAT ParquetFormat\n    WITH (\n            FORMAT_TYPE = PARQUET,\n            DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n        );\nGO;\n\n-- If you will need to transform data frequently, you can use a stored procedure to encapsulate a CETAS statement.\n-- create a stored procedure in the Sales database that aggregates sales by \n-- year and saves the results in an external table:\n\nCREATE PROCEDURE sp_GetYearlySalesPipeline\nAS\nBEGIN\n    IF EXISTS (\n            SELECT * FROM sys.external_tables\n            WHERE name = 'YearlySalesTotalsPipeline'\n        )\n    DROP EXTERNAL TABLE YearlySalesTotalsPipeline\n    \n    CREATE EXTERNAL TABLE YearlySalesTotalsPipeline\n    WITH (\n            LOCATION = 'L3/data/yearlysalespipeline/',\n            DATA_SOURCE = sales_data,\n            FILE_FORMAT = ParquetFormat\n        )\n    AS\n    SELECT YEAR(OrderDate) AS CalendarYear,\n           SUM(Quantity) AS ItemsSold,\n           ROUND(SUM(UnitPrice) - SUM(TaxAmount), 2) AS NetRevenue\n    FROM\n        OPENROWSET(\n            BULK '*.csv',\n            DATA_SOURCE = 'sales_data',\n            FORMAT = 'CSV',\n            PARSER_VERSION = '2.0'\n        ) \n        WITH(\n        SalesOrderNumber VARCHAR(10),\n        SalesOrderLineNumber INT,\n        OrderDate DATE,\n        CustomerName VARCHAR(25),\n        EmailAddress VARCHAR(50),\n        Item VARCHAR(50),\n        Quantity INT,\n        UnitPrice DECIMAL(18,2),\n        TaxAmount DECIMAL (18,2)\n    ) AS orders \n    GROUP BY YEAR(OrderDate)\nEND\n\nGO;\n\n-- Execute the stored procedure:\nEXEC sp_GetYearlySales;\n\n-- On the files tab containing the file system for your data lake, \n-- view the contents of the sales folder (refreshing the view if necessary) \n-- and verify that a new yearlysales folder has been created.\n\nSELECT * FROM YearlySalesTotalsPipeline\n\n\nDROP PROCEDURE sp_GetYearlySalesPipeline \nDROP EXTERNAL TABLE YearlySalesTotalsPipeline\nDROP EXTERNAL FILE FORMAT ParquetFormat\nDROP EXTERNAL DATA SOURCE sales_data\n\nUSE Master\nDROP DATABASE Sales",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Sales",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
