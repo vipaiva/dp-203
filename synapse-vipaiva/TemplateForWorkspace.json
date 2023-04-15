@@ -2791,6 +2791,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 2')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "SELECT TOP (100) [SalesOrderId]\n,[C2]\n,[C3]\n,[C4]\n,[C5]\n,[C6]\n FROM [RetailDB].[dbo].[SalesOrder]",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "RetailDB",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/Serverless - Purview Permissions')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
@@ -9524,10 +9544,11 @@
 								"Columns": [
 									{
 										"Name": "SalesOrderId",
+										"Description": "The unique identifier of an order.",
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
-											"IsNullable": true,
+											"IsNullable": false,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -9535,20 +9556,35 @@
 										"DeltaFormatInvalidMessages": []
 									},
 									{
-										"Name": "C2",
+										"Name": "OrderDate",
+										"Description": "The date of the order.",
 										"OriginDataTypeName": {
 											"TypeName": "timestamp",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Properties": {
-												"TimestampFormat": "YYYY-MM-DD HH:MM:SS.fffffffff",
+												"TimestampFormat": "yyyy-MM-dd",
 												"HIVE_TYPE_STRING": "timestamp"
 											}
 										},
 										"DeltaFormatInvalidMessages": []
 									},
 									{
-										"Name": "C3",
+										"Name": "LineItemId",
+										"Description": "The ID of an individual line item.",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": false,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "CustomerId",
+										"Description": "The customer.",
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
@@ -9560,7 +9596,8 @@
 										"DeltaFormatInvalidMessages": []
 									},
 									{
-										"Name": "C4",
+										"Name": "ProductId",
+										"Description": "The product.",
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
@@ -9572,19 +9609,8 @@
 										"DeltaFormatInvalidMessages": []
 									},
 									{
-										"Name": "C5",
-										"OriginDataTypeName": {
-											"TypeName": "long",
-											"IsComplexType": false,
-											"IsNullable": true,
-											"Properties": {
-												"HIVE_TYPE_STRING": "long"
-											}
-										},
-										"DeltaFormatInvalidMessages": []
-									},
-									{
-										"Name": "C6",
+										"Name": "Quantity",
+										"Description": "The order quantity.",
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
@@ -9630,7 +9656,7 @@
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-								"PrimaryKeys": "",
+								"PrimaryKeys": "SalesOrderId,LineItemId",
 								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
