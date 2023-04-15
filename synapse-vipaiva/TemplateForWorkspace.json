@@ -2298,7 +2298,7 @@
 					"name": "dp-203/01-Intro to data engineering/01-Lab-Explore Azure Synapse Analytics"
 				},
 				"content": {
-					"query": "-- Lab: Explore Azure Synapse Analytics\n-- Task: Use a dedicated SQL pool to query a data warehouse\n\nSELECT d.CalendarYear, d.MonthNumberOfYear, d.EnglishMonthName,\n    p.EnglishProductName AS Product, SUM(o.OrderQuantity) AS UnitsSold\nFROM dbo.FactInternetSales AS o\nJOIN dbo.DimDate AS d ON o.OrderDateKey = d.DateKey\nJOIN dbo.DimProduct AS p ON o.ProductKey = p.ProductKey\nGROUP BY d.CalendarYear, d.MonthNumberOfYear, d.EnglishMonthName, p.EnglishProductName\nORDER BY d.MonthNumberOfYear\n\nselect COUNT(*) from dbo.FactInternetSales\nselect COUNT(*) from dbo.DimDate\nselect COUNT(*) from dbo.DimProduct\n\n",
+					"query": "-- Lab: Explore Azure Synapse Analytics\n-- Task: Use a dedicated SQL pool to query a data warehouse\n\nSELECT d.CalendarYear, d.MonthNumberOfYear, d.EnglishMonthName,\n    p.EnglishProductName AS Product, SUM(o.OrderQuantity) AS UnitsSold\nFROM dbo.FactInternetSales AS o\nJOIN dbo.DimDate AS d ON o.OrderDateKey = d.DateKey\nJOIN dbo.DimProduct AS p ON o.ProductKey = p.ProductKey\nGROUP BY d.CalendarYear, d.MonthNumberOfYear, d.EnglishMonthName, p.EnglishProductName\nORDER BY d.MonthNumberOfYear\n\nselect COUNT(*) from dbo.FactInternetSales\nselect COUNT(*) from dbo.DimDate\nselect COUNT(*) from dbo.DimProduct\nselect COUNT(*) from dbo.DimCustomer\n\n",
 					"metadata": {
 						"language": "sql"
 					},
@@ -8181,6 +8181,18 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/sqldwh')]",
+			"type": "Microsoft.Synapse/workspaces/sqlPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"collation": "SQL_Latin1_General_CP1_CI_AS",
+				"maxSizeBytes": 263882790666240,
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "uksouth"
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/sparkpool')]",
 			"type": "Microsoft.Synapse/workspaces/bigDataPools",
 			"apiVersion": "2019-06-01-preview",
@@ -8200,18 +8212,6 @@
 				"sparkVersion": "3.2",
 				"isComputeIsolationEnabled": false,
 				"sessionLevelPackagesEnabled": false,
-				"annotations": []
-			},
-			"dependsOn": [],
-			"location": "uksouth"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/sqldwh')]",
-			"type": "Microsoft.Synapse/workspaces/sqlPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"collation": "SQL_Latin1_General_CP1_CI_AS",
-				"maxSizeBytes": 263882790666240,
 				"annotations": []
 			},
 			"dependsOn": [],
