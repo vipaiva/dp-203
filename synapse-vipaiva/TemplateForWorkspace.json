@@ -1984,7 +1984,7 @@
 					"name": "dp-203/02-Serverless SQL/03-Lab-Transform files using a serverless SQL pool"
 				},
 				"content": {
-					"query": "-- Lab: Transform files using a serverless SQL pool\n-- Task: Query Sales CSV files\n\n-- This code uses the OPENROWSET to read data from the CSV files in the sales folder and retrieves the first 100 rows of data.\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakeweslbo.dfs.core.windows.net/files/labs-dp-203/03/data/**',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0'\n    ) AS [result]\n\n-- In this case, the data files include the column names in the first row; so modify the query to add a HEADER_ROW = TRUE parameter to the WITH clause, as shown here \nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakeweslbo.dfs.core.windows.net/files/labs-dp-203/03/data/**',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]",
+					"query": "-- Lab: Transform files using a serverless SQL pool\n-- Task: Query Sales CSV files\n\n-- This code uses the OPENROWSET to read data from the CSV files in the sales folder and retrieves the first 100 rows of data.\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/03/data/**',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0'\n    ) AS [result]\n\n-- In this case, the data files include the column names in the first row; so modify the query to add a HEADER_ROW = TRUE parameter to the WITH clause, as shown here \nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/03/data/**',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW = TRUE\n    ) AS [result]",
 					"metadata": {
 						"language": "sql"
 					},
@@ -9246,18 +9246,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/sqldwh')]",
-			"type": "Microsoft.Synapse/workspaces/sqlPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"collation": "SQL_Latin1_General_CP1_CI_AS",
-				"maxSizeBytes": 263882790666240,
-				"annotations": []
-			},
-			"dependsOn": [],
-			"location": "uksouth"
-		},
-		{
 			"name": "[concat(parameters('workspaceName'), '/sparkpool')]",
 			"type": "Microsoft.Synapse/workspaces/bigDataPools",
 			"apiVersion": "2019-06-01-preview",
@@ -9277,6 +9265,18 @@
 				"sparkVersion": "3.2",
 				"isComputeIsolationEnabled": false,
 				"sessionLevelPackagesEnabled": false,
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "uksouth"
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/sqldwh')]",
+			"type": "Microsoft.Synapse/workspaces/sqlPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"collation": "SQL_Latin1_General_CP1_CI_AS",
+				"maxSizeBytes": 263882790666240,
 				"annotations": []
 			},
 			"dependsOn": [],
