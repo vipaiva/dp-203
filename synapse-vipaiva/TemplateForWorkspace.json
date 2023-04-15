@@ -8196,6 +8196,60 @@
 						"Source": {
 							"Type": "SPARK"
 						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "relationship-iilwjutkth",
+							"EntityType": "RELATIONSHIP",
+							"Namespace": {
+								"DatabaseName": "RetailDB"
+							},
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"FromTableName": "Product",
+							"ToTableName": "SalesOrder",
+							"ColumnRelationshipInformations": [
+								{
+									"FromColumnName": "ProductId",
+									"ToColumnName": "ProductId"
+								}
+							],
+							"RelationshipType": 0,
+							"Properties": {}
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "relationship-tvxqxsjpkv",
+							"EntityType": "RELATIONSHIP",
+							"Namespace": {
+								"DatabaseName": "RetailDB"
+							},
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"FromTableName": "Customer",
+							"ToTableName": "SalesOrder",
+							"ColumnRelationshipInformations": [
+								{
+									"FromColumnName": "CustomerId",
+									"ToColumnName": "CustomerId"
+								}
+							],
+							"RelationshipType": 0,
+							"Properties": {}
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
 					}
 				]
 			},
