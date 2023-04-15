@@ -7795,7 +7795,8 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "FirstName",
@@ -7808,7 +7809,8 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "LastName",
@@ -7821,7 +7823,8 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "EmailAddress",
@@ -7834,7 +7837,8 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "Phone",
@@ -7847,7 +7851,8 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									}
 								],
 								"Format": {
@@ -7858,8 +7863,8 @@
 									"Properties": {
 										"path": "abfss://files@datalakevipaiva.dfs.core.windows.net/RetailDB/Customer",
 										"delimiter": ",",
-										"firstRowAsHeader": "false",
 										"multiLine": "false",
+										"firstRowAsHeader": "false",
 										"serialization.format": "1",
 										"escape": "\\",
 										"quote": "\"",
@@ -7901,6 +7906,160 @@
 						"ActionType": "CREATE",
 						"OldEntity": null,
 						"NewEntity": {
+							"Name": "Product",
+							"EntityType": "TABLE",
+							"Namespace": {
+								"DatabaseName": "RetailDB"
+							},
+							"Description": "",
+							"TableType": "EXTERNAL",
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"StorageDescriptor": {
+								"Columns": [
+									{
+										"Name": "ProductId",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ProductName",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 128,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "IntroductionDate",
+										"OriginDataTypeName": {
+											"TypeName": "date",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"DateFormat": "YYYY-MM-DD",
+												"HIVE_TYPE_STRING": "date"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ActualAbandonmentDate",
+										"OriginDataTypeName": {
+											"TypeName": "date",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"DateFormat": "YYYY-MM-DD",
+												"HIVE_TYPE_STRING": "date"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ProductGrossWeight",
+										"OriginDataTypeName": {
+											"TypeName": "decimal",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Precision": 18,
+											"Scale": 8,
+											"Properties": {
+												"HIVE_TYPE_STRING": "decimal"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ItemSku",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 20,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ListPrice",
+										"OriginDataTypeName": {
+											"TypeName": "decimal",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Precision": 18,
+											"Scale": 2,
+											"Properties": {
+												"HIVE_TYPE_STRING": "decimal"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									}
+								],
+								"Format": {
+									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+									"FormatType": "csv",
+									"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+									"Properties": {
+										"path": "abfss://files@datalakevipaiva.dfs.core.windows.net/RetailDB/Product",
+										"delimiter": ",",
+										"multiLine": "false",
+										"firstRowAsHeader": "false",
+										"serialization.format": "1",
+										"FormatTypeSetToDatabaseDefault": false,
+										"header": "false"
+									}
+								},
+								"Source": {
+									"Provider": "ADLS",
+									"Location": "abfss://files@datalakevipaiva.dfs.core.windows.net/RetailDB/Product",
+									"Properties": {
+										"LinkedServiceName": "synapse-vipaiva-WorkspaceDefaultStorage",
+										"LocationSetToDatabaseDefault": false
+									}
+								},
+								"Properties": {
+									"textinputformat.record.delimiter": ",",
+									"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+								},
+								"Compressed": false,
+								"IsStoredAsSubdirectories": false
+							},
+							"Properties": {
+								"Description": "",
+								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
+								"PrimaryKeys": "",
+								"spark.sql.sources.provider": "csv"
+							},
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
 							"Name": "SalesOrder",
 							"EntityType": "TABLE",
 							"Namespace": {
@@ -7923,7 +8082,8 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "OrderDate",
@@ -7936,7 +8096,8 @@
 												"TimestampFormat": "yyyy-MM-dd",
 												"HIVE_TYPE_STRING": "timestamp"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "LineItemId",
@@ -7948,7 +8109,8 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "CustomerId",
@@ -7960,7 +8122,8 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "ProductId",
@@ -7972,7 +8135,8 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									},
 									{
 										"Name": "Quantity",
@@ -7984,7 +8148,8 @@
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
-										}
+										},
+										"DeltaFormatInvalidMessages": []
 									}
 								],
 								"Format": {
@@ -7995,8 +8160,8 @@
 									"Properties": {
 										"path": "abfss://files@datalakevipaiva.dfs.core.windows.net/RetailDB/SalesOrder",
 										"delimiter": ",",
-										"firstRowAsHeader": "false",
 										"multiLine": "false",
+										"firstRowAsHeader": "false",
 										"serialization.format": "1",
 										"FormatTypeSetToDatabaseDefault": false,
 										"header": "false"
