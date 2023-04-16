@@ -5,12 +5,12 @@
 			"name": "dp-203/06-HTAP/14-Lab-Synapse Link CosmosDB"
 		},
 		"content": {
-			"query": "IF (NOT EXISTS(SELECT * FROM sys.credentials WHERE name = 'cosmosdb'))\n    \n    CREATE CREDENTIAL [cosmosdb]\n    WITH IDENTITY = 'SHARED ACCESS SIGNATURE', SECRET = '<removed>'\nGO\n\nSELECT TOP 100 *\nFROM OPENROWSET(​PROVIDER = 'CosmosDB',\n                CONNECTION = 'Account=cosmos-weslbo;Database=AdventureWorks',\n                OBJECT = 'sales',\n                SERVER_CREDENTIAL = 'cosmosdb'\n) AS [sales]\n\nSELECT *\nFROM OPENROWSET(​PROVIDER = 'CosmosDB',\n                CONNECTION = 'Account=cosmos-weslbo;Database=AdventureWorks',\n                OBJECT = 'sales',\n                SERVER_CREDENTIAL = 'cosmosdb'\n)\nWITH (\n    OrderID VARCHAR(10) '$.id',\n    OrderDate VARCHAR(10) '$.orderdate',\n    CustomerID INTEGER '$.customerid',\n    CustomerName VARCHAR(40) '$.customerdetails.customername',\n    CustomerEmail VARCHAR(30) '$.customerdetails.customeremail',\n    Product VARCHAR(30) '$.product',\n    Quantity INTEGER '$.quantity',\n    Price FLOAT '$.price'\n)\nAS sales\nORDER BY OrderID;",
+			"query": "IF (NOT EXISTS(SELECT * FROM sys.credentials WHERE name = 'cosmosdb'))\n    \n    CREATE CREDENTIAL [cosmosdb]\n    WITH IDENTITY = 'SHARED ACCESS SIGNATURE', SECRET = 'hvrfQl8LuWzoQWYxrzi68Ce2yjT2VsH4hpAuWhQ8KCD8UMaXNfacs5DqrStNXdKFogKB01ljqU5KACDb4ak1fw=='\nGO\n\nSELECT TOP 100 *\nFROM OPENROWSET(​PROVIDER = 'CosmosDB',\n                CONNECTION = 'Account=cosmos-vipaiva;Database=AdventureWorks',\n                OBJECT = 'Sales',\n                SERVER_CREDENTIAL = 'cosmosdb'\n) AS [Sales]\n\nSELECT *\nFROM OPENROWSET(​PROVIDER = 'CosmosDB',\n                CONNECTION = 'Account=cosmos-vipaiva;Database=AdventureWorks',\n                OBJECT = 'Sales',\n                SERVER_CREDENTIAL = 'cosmosdb'\n)\nWITH (\n    OrderID VARCHAR(10) '$.id',\n    OrderDate VARCHAR(10) '$.orderdate',\n    CustomerID INTEGER '$.customerid',\n    CustomerName VARCHAR(40) '$.customerdetails.customername',\n    CustomerEmail VARCHAR(30) '$.customerdetails.customeremail',\n    Product VARCHAR(30) '$.product',\n    Quantity INTEGER '$.quantity',\n    Price FLOAT '$.price'\n)\nAS sales\nORDER BY OrderID;",
 			"metadata": {
 				"language": "sql"
 			},
 			"currentConnection": {
-				"databaseName": "master",
+				"databaseName": "salesdbcosmos",
 				"poolName": "Built-in"
 			},
 			"resultLimit": 5000
