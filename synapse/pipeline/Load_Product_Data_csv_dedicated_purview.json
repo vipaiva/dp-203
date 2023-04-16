@@ -105,7 +105,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DestinationDataset_u4p",
+						"referenceName": "DestinationDataset_dedicatedPool",
 						"type": "DatasetReference"
 					}
 				]
