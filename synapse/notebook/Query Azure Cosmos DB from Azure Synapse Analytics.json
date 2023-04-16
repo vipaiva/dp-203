@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "89292ddc-8e71-464c-baf0-5d5a1099f4f6"
+				"spark.autotune.trackingId": "a7c26f4d-3dd4-412d-afc6-64a0bfc4828e"
 			}
 		},
 		"metadata": {
@@ -190,7 +190,7 @@
 					"%%sql\r\n",
 					"\r\n",
 					"-- Create a logical database in the Spark metastore\r\n",
-					"CREATE DATABASE salesdb;\r\n",
+					"CREATE DATABASE salesdbCOSMOS;\r\n",
 					""
 				],
 				"execution_count": 25
@@ -216,7 +216,7 @@
 					"%%sql\n",
 					"\n",
 					"\n",
-					"USE salesdb;\n",
+					"USE salesdbCOSMOS;\n",
 					"\n",
 					"-- Create a table from the Cosmos DB container\n",
 					"CREATE TABLE salesorders using cosmos.olap options (\n",
@@ -267,7 +267,7 @@
 					"FROM salesorders\n",
 					"ORDER BY id;"
 				],
-				"execution_count": 27
+				"execution_count": 28
 			},
 			{
 				"cell_type": "markdown",
@@ -316,7 +316,7 @@
 					"%%sql\n",
 					"\n",
 					"DROP TABLE salesorders;\n",
-					"DROP DATABASE salesdb;"
+					"DROP DATABASE salesdbCOSMOS;"
 				],
 				"execution_count": 24
 			}
