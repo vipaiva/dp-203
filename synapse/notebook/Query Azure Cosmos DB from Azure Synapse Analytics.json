@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "e3e23519-8b9f-4a62-8041-543ac4e0d461"
+				"spark.autotune.trackingId": "d54ca452-ace2-414b-af1c-e15cd464f856"
 			}
 		},
 		"metadata": {
@@ -86,7 +86,7 @@
 					"\n",
 					"display(df.limit(10))"
 				],
-				"execution_count": 6
+				"execution_count": 31
 			},
 			{
 				"cell_type": "markdown",
@@ -119,7 +119,7 @@
 					"customer_df = df.select(\"customerid\", \"customerdetails\")\n",
 					"display(customer_df)"
 				],
-				"execution_count": 7
+				"execution_count": 32
 			},
 			{
 				"cell_type": "markdown",
@@ -193,7 +193,7 @@
 					"CREATE DATABASE salesdbCOSMOS;\r\n",
 					""
 				],
-				"execution_count": 25
+				"execution_count": 33
 			},
 			{
 				"cell_type": "code",
@@ -228,7 +228,7 @@
 					"SELECT *\n",
 					"FROM salesorders;"
 				],
-				"execution_count": 26
+				"execution_count": 34
 			},
 			{
 				"cell_type": "markdown",
@@ -267,7 +267,7 @@
 					"FROM salesorders\n",
 					"ORDER BY id;"
 				],
-				"execution_count": 29
+				"execution_count": 35
 			},
 			{
 				"cell_type": "markdown",
@@ -318,7 +318,7 @@
 					"DROP TABLE salesorders;\n",
 					"DROP DATABASE salesdbCOSMOS;"
 				],
-				"execution_count": 24
+				"execution_count": 30
 			}
 		]
 	}
