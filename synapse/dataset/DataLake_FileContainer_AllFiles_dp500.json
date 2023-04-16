@@ -3,13 +3,7 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "DataLake",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"suffix": {
-					"value": "@replace(pipeline().DataFactory, 'synapse-', '')",
-					"type": "Expression"
-				}
-			}
+			"type": "LinkedServiceReference"
 		},
 		"parameters": {
 			"fileName": {

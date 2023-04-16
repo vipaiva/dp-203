@@ -3,13 +3,7 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "DataLake",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"suffix": {
-					"value": "@dataset().suffix",
-					"type": "Expression"
-				}
-			}
+			"type": "LinkedServiceReference"
 		},
 		"parameters": {
 			"suffix": {
