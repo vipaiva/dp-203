@@ -1,0 +1,36 @@
+{
+	"name": "AzureSynapseAnalyticsProductsPurview",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlDwh",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"suffix": "vipaiva"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "ProductID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ProductName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Category",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ListPrice",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "productsPurview"
+		}
+	}
+}
