@@ -248,7 +248,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy_u4p",
+						"name": "Copy_Product_data",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -351,7 +351,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "DestinationDataset_u4p",
+								"referenceName": "DestinationDataset_dedicatedPool",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -369,7 +369,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/SourceDataset_u4p')]",
-				"[concat(variables('workspaceId'), '/datasets/DestinationDataset_u4p')]"
+				"[concat(variables('workspaceId'), '/datasets/DestinationDataset_dedicatedPool')]"
 			]
 		},
 		{
@@ -1539,7 +1539,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/DestinationDataset_u4p')]",
+			"name": "[concat(parameters('workspaceName'), '/DestinationDataset_dedicatedPool')]",
 			"type": "Microsoft.Synapse/workspaces/datasets",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
