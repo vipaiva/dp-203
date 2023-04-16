@@ -1,0 +1,16 @@
+{
+	"name": "DestinationDataset_u4p",
+	"properties": {
+		"annotations": [],
+		"type": "SqlPoolTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "productsPurview"
+		},
+		"sqlPool": {
+			"referenceName": "sqldwh",
+			"type": "SqlPoolReference"
+		}
+	}
+}
