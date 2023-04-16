@@ -5,11 +5,26 @@
 		"workspaceName": {
 			"value": "synapse-vipaiva"
 		},
+		"AdventureWorksCosmos_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabaseAdventureWorksLT_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqldb-vipaiva.database.windows.net;Initial Catalog=AdventureWorksLT;User ID=azureuser"
+		},
+		"CosmosDBLSAdventureWorks_connectionString": {
+			"value": ""
+		},
+		"CosmosDBLSTEST_connectionString": {
+			"value": ""
+		},
+		"DemoTestCosmos_connectionString": {
+			"value": ""
+		},
 		"SQLOnDemandSales_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=synapse-vipaiva-ondemand.sql.azuresynapse.net;Initial Catalog=Sales"
 		},
 		"SqlAdventureWorksLT_connectionString": {
-			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqldb-weslbo.database.windows.net;Initial Catalog=AdventureWorksLT;User ID=azureuser"
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqldb-vipaiva.database.windows.net;Initial Catalog=AdventureWorksLT;User ID=azureuser"
 		},
 		"SqlDwh_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=\"@{concat('synapse-', linkedService().suffix,'.sql.azuresynapse.net')}\";Initial Catalog=sqldwh"

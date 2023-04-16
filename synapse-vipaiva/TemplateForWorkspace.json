@@ -7,6 +7,27 @@
 			"metadata": "Workspace name",
 			"defaultValue": "synapse-vipaiva"
 		},
+		"AdventureWorksCosmos_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AdventureWorksCosmos'"
+		},
+		"AzureSqlDatabaseAdventureWorksLT_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseAdventureWorksLT'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqldb-vipaiva.database.windows.net;Initial Catalog=AdventureWorksLT;User ID=azureuser"
+		},
+		"CosmosDBLSAdventureWorks_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CosmosDBLSAdventureWorks'"
+		},
+		"CosmosDBLSTEST_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CosmosDBLSTEST'"
+		},
+		"DemoTestCosmos_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'DemoTestCosmos'"
+		},
 		"SQLOnDemandSales_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SQLOnDemandSales'",
@@ -15,7 +36,7 @@
 		"SqlAdventureWorksLT_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlAdventureWorksLT'",
-			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqldb-weslbo.database.windows.net;Initial Catalog=AdventureWorksLT;User ID=azureuser"
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqldb-vipaiva.database.windows.net;Initial Catalog=AdventureWorksLT;User ID=azureuser"
 		},
 		"SqlDwh_connectionString": {
 			"type": "secureString",
@@ -356,7 +377,8 @@
 				"folder": {
 					"name": "dp-203/02-Serverless SQL"
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2023-04-15T17:41:57Z"
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/PipelineFilesSP')]",
@@ -1175,10 +1197,7 @@
 					"referenceName": "SqlDwh",
 					"type": "LinkedServiceReference",
 					"parameters": {
-						"suffix": {
-							"value": "@replace(pipeline().DataFactory, 'synapse-', '')",
-							"type": "Expression"
-						}
+						"suffix": "vipaiva"
 					}
 				},
 				"annotations": [],
@@ -1200,8 +1219,7 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "DataLake",
-					"type": "LinkedServiceReference",
-					"parameters": {}
+					"type": "LinkedServiceReference"
 				},
 				"parameters": {
 					"filename": {
@@ -1237,8 +1255,7 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "DataLake",
-					"type": "LinkedServiceReference",
-					"parameters": {}
+					"type": "LinkedServiceReference"
 				},
 				"parameters": {
 					"filename": {
@@ -1271,8 +1288,7 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "DataLake",
-					"type": "LinkedServiceReference",
-					"parameters": {}
+					"type": "LinkedServiceReference"
 				},
 				"parameters": {
 					"filename": {
@@ -1337,8 +1353,7 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "DataLake",
-					"type": "LinkedServiceReference",
-					"parameters": {}
+					"type": "LinkedServiceReference"
 				},
 				"parameters": {
 					"fileName": {
@@ -1369,8 +1384,7 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "DataLake",
-					"type": "LinkedServiceReference",
-					"parameters": {}
+					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -1591,8 +1605,7 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "DataLake",
-					"type": "LinkedServiceReference",
-					"parameters": {}
+					"type": "LinkedServiceReference"
 				},
 				"parameters": {
 					"suffix": {
@@ -1645,6 +1658,95 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/AdventureWorksCosmos')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"description": "AdventureWorks Cosmos DB database",
+				"annotations": [],
+				"type": "CosmosDb",
+				"typeProperties": {
+					"connectionString": "[parameters('AdventureWorksCosmos_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AzureSqlDatabaseAdventureWorksLT')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabaseAdventureWorksLT_connectionString')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "KeyVault",
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"suffix": "vipaiva"
+							}
+						},
+						"secretName": "sqlpassword"
+					}
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]",
+				"[concat(variables('workspaceId'), '/linkedServices/KeyVault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CosmosDBLSAdventureWorks')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "CosmosDb",
+				"typeProperties": {
+					"connectionString": "[parameters('CosmosDBLSAdventureWorks_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CosmosDBLSTEST')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "CosmosDb",
+				"typeProperties": {
+					"connectionString": "[parameters('CosmosDBLSTEST_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/DataLake')]",
 			"type": "Microsoft.Synapse/workspaces/linkedServices",
 			"apiVersion": "2019-06-01-preview",
@@ -1654,6 +1756,26 @@
 				"type": "AzureBlobFS",
 				"typeProperties": {
 					"url": "[parameters('DataLake_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DemoTestCosmos')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"description": "Cosmos OLTP",
+				"annotations": [],
+				"type": "CosmosDb",
+				"typeProperties": {
+					"connectionString": "[parameters('DemoTestCosmos_connectionString')]"
 				},
 				"connectVia": {
 					"referenceName": "AutoResolveIntegrationRuntime",
@@ -1782,7 +1904,7 @@
 							"referenceName": "KeyVault",
 							"type": "LinkedServiceReference",
 							"parameters": {
-								"suffix": "weslbo"
+								"suffix": "vipaiva"
 							}
 						},
 						"secretName": "sqlPassword"
@@ -1805,7 +1927,8 @@
 			"properties": {
 				"parameters": {
 					"suffix": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "vipaiva"
 					}
 				},
 				"annotations": [],
@@ -2759,12 +2882,32 @@
 					"name": "dp-203/06-HTAP/14-Lab-Synapse Link CosmosDB"
 				},
 				"content": {
-					"query": "IF (NOT EXISTS(SELECT * FROM sys.credentials WHERE name = 'cosmosdb'))\n    \n    CREATE CREDENTIAL [cosmosdb]\n    WITH IDENTITY = 'SHARED ACCESS SIGNATURE', SECRET = '<removed>'\nGO\n\nSELECT TOP 100 *\nFROM OPENROWSET(​PROVIDER = 'CosmosDB',\n                CONNECTION = 'Account=cosmos-weslbo;Database=AdventureWorks',\n                OBJECT = 'sales',\n                SERVER_CREDENTIAL = 'cosmosdb'\n) AS [sales]\n\nSELECT *\nFROM OPENROWSET(​PROVIDER = 'CosmosDB',\n                CONNECTION = 'Account=cosmos-weslbo;Database=AdventureWorks',\n                OBJECT = 'sales',\n                SERVER_CREDENTIAL = 'cosmosdb'\n)\nWITH (\n    OrderID VARCHAR(10) '$.id',\n    OrderDate VARCHAR(10) '$.orderdate',\n    CustomerID INTEGER '$.customerid',\n    CustomerName VARCHAR(40) '$.customerdetails.customername',\n    CustomerEmail VARCHAR(30) '$.customerdetails.customeremail',\n    Product VARCHAR(30) '$.product',\n    Quantity INTEGER '$.quantity',\n    Price FLOAT '$.price'\n)\nAS sales\nORDER BY OrderID;",
+					"query": "IF (NOT EXISTS(SELECT * FROM sys.credentials WHERE name = 'cosmosdb'))\n    \n    CREATE CREDENTIAL [cosmosdb]\n    WITH IDENTITY = 'SHARED ACCESS SIGNATURE', SECRET = 'hvrfQl8LuWzoQWYxrzi68Ce2yjT2VsH4hpAuWhQ8KCD8UMaXNfacs5DqrStNXdKFogKB01ljqU5KACDb4ak1fw=='\nGO\n\nSELECT TOP 100 *\nFROM OPENROWSET(​PROVIDER = 'CosmosDB',\n                CONNECTION = 'Account=cosmos-vipaiva;Database=AdventureWorks',\n                OBJECT = 'Sales',\n                SERVER_CREDENTIAL = 'cosmosdb'\n) AS [Sales]\n\nSELECT *\nFROM OPENROWSET(​PROVIDER = 'CosmosDB',\n                CONNECTION = 'Account=cosmos-vipaiva;Database=AdventureWorks',\n                OBJECT = 'Sales',\n                SERVER_CREDENTIAL = 'cosmosdb'\n)\nWITH (\n    OrderID VARCHAR(10) '$.id',\n    OrderDate VARCHAR(10) '$.orderdate',\n    CustomerID INTEGER '$.customerid',\n    CustomerName VARCHAR(40) '$.customerdetails.customername',\n    CustomerEmail VARCHAR(30) '$.customerdetails.customeremail',\n    Product VARCHAR(30) '$.product',\n    Quantity INTEGER '$.quantity',\n    Price FLOAT '$.price'\n)\nAS sales\nORDER BY OrderID;",
 					"metadata": {
 						"language": "sql"
 					},
 					"currentConnection": {
-						"databaseName": "master",
+						"databaseName": "salesdbcosmos",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 1')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "adventureworks",
 						"poolName": "Built-in"
 					},
 					"resultLimit": 5000
@@ -2782,7 +2925,7 @@
 					"name": "dp-203/08-Govern data/22-Purview"
 				},
 				"content": {
-					"query": "CREATE LOGIN [purview-weslbo] FROM EXTERNAL PROVIDER\n\nUSE default\n\nCREATE USER [purview-weslbo] FROM LOGIN [purview-weslbo]\nALTER ROLE db_datareader ADD MEMBER [purview-weslbo]\n\nUSE Sales\n\nCREATE USER [purview-weslbo] FROM LOGIN [purview-weslbo]\nALTER ROLE db_datareader ADD MEMBER [purview-weslbo]\n",
+					"query": "CREATE LOGIN [purview-vipaiva] FROM EXTERNAL PROVIDER\n\nUSE default\n\nCREATE USER [purview-vipaiva] FROM LOGIN [purview-vipaiva]\nALTER ROLE db_datareader ADD MEMBER [purview-vipaiva]\n\nUSE Sales\n\nCREATE USER [purview-vipaiva] FROM LOGIN [purview-vipaiva]\nALTER ROLE db_datareader ADD MEMBER [purview-vipaiva]\n",
 					"metadata": {
 						"language": "sql"
 					},
@@ -2884,6 +3027,7 @@
 					"executorMemory": "28g",
 					"executorCores": 4,
 					"numExecutors": 2,
+					"runAsWorkspaceSystemIdentity": false,
 					"conf": {
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
@@ -2908,12 +3052,14 @@
 						"endpoint": "https://synapse-vipaiva.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
 						"auth": {
 							"type": "AAD",
-							"authResource": "https://dev.azuresynapse.net"
+							"authResource": "https://dev.azuresynapse.net",
+							"authHeader": null
 						},
 						"sparkVersion": "3.2",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"extraHeader": null
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -4189,6 +4335,7 @@
 					"executorMemory": "28g",
 					"executorCores": 4,
 					"numExecutors": 2,
+					"runAsWorkspaceSystemIdentity": false,
 					"conf": {
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
@@ -4213,12 +4360,14 @@
 						"endpoint": "https://synapse-vipaiva.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
 						"auth": {
 							"type": "AAD",
-							"authResource": "https://dev.azuresynapse.net"
+							"authResource": "https://dev.azuresynapse.net",
+							"authHeader": null
 						},
 						"sparkVersion": "3.2",
 						"nodeCount": 3,
 						"cores": 8,
-						"memory": 56
+						"memory": 56,
+						"extraHeader": null
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -7157,6 +7306,7 @@
 					"executorMemory": "28g",
 					"executorCores": 4,
 					"numExecutors": 2,
+					"runAsWorkspaceSystemIdentity": false,
 					"conf": {
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
@@ -7181,12 +7331,14 @@
 						"endpoint": "https://synapse-vipaiva.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
 						"auth": {
 							"type": "AAD",
-							"authResource": "https://dev.azuresynapse.net"
+							"authResource": "https://dev.azuresynapse.net",
+							"authHeader": null
 						},
 						"sparkVersion": "3.2",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"extraHeader": null
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -7394,7 +7546,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "756e8be1-955c-4cf8-ad5f-7be8174987f1"
+						"spark.autotune.trackingId": "0873dbdb-f2cc-4516-9497-4f48c596a0ea"
 					}
 				},
 				"metadata": {
@@ -7408,18 +7560,18 @@
 						"name": "python"
 					},
 					"a365ComputeOptions": {
-						"id": "/subscriptions/784f1210-8faf-4cf4-b9aa-e50fa084adce/resourceGroups/rg-dp-203/providers/Microsoft.Synapse/workspaces/synapse-weslbo/bigDataPools/sparkpool",
+						"id": "/subscriptions/073a4913-dc63-46b9-b676-fad837dab1ba/resourceGroups/rg-dp-203/providers/Microsoft.Synapse/workspaces/synapse-vipaiva/bigDataPools/sparkpool",
 						"name": "sparkpool",
 						"type": "Spark",
-						"endpoint": "https://synapse-weslbo.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
+						"endpoint": "https://synapse-vipaiva.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
 						"auth": {
 							"type": "AAD",
 							"authResource": "https://dev.azuresynapse.net"
 						},
 						"sparkVersion": "3.2",
 						"nodeCount": 3,
-						"cores": 4,
-						"memory": 28
+						"cores": 8,
+						"memory": 56
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -7450,19 +7602,17 @@
 							"collapsed": false
 						},
 						"source": [
+							"\n",
 							"df = spark.read\\\n",
 							"    .format(\"cosmos.olap\")\\\n",
-							"    .option(\"spark.synapse.linkedService\", \"CosmosDb\")\\\n",
-							"    .option(\"spark.cosmos.container\", \"sales\")\\\n",
+							"    .option(\"spark.synapse.linkedService\", \"AdventureWorksCosmos\")\\\n",
+							"    .option(\"spark.cosmos.container\", \"Sales\")\\\n",
 							"    .load()\n",
 							"\n",
-							"display(df.limit(10))\n",
-							"\n",
-							"\n",
-							"## Notice that the name of the container is CASE SENSITIVE!"
+							"display(df.limit(10))"
 						],
 						"outputs": [],
-						"execution_count": 7
+						"execution_count": 31
 					},
 					{
 						"cell_type": "markdown",
@@ -7496,7 +7646,7 @@
 							"display(customer_df)"
 						],
 						"outputs": [],
-						"execution_count": 8
+						"execution_count": 32
 					},
 					{
 						"cell_type": "markdown",
@@ -7532,7 +7682,7 @@
 							"display(customerdetails_df)"
 						],
 						"outputs": [],
-						"execution_count": 9
+						"execution_count": 8
 					},
 					{
 						"cell_type": "markdown",
@@ -7565,17 +7715,42 @@
 							"collapsed": false
 						},
 						"source": [
+							"%%sql\r\n",
+							"\r\n",
+							"-- Create a logical database in the Spark metastore\r\n",
+							"CREATE DATABASE salesdbCOSMOS;\r\n",
+							""
+						],
+						"outputs": [],
+						"execution_count": 33
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"microsoft": {
+								"language": "sparksql"
+							},
+							"collapsed": false
+						},
+						"source": [
 							"%%sql\n",
 							"\n",
-							"-- Create a logical database in the Spark metastore\n",
-							"CREATE DATABASE salesdb;\n",
 							"\n",
-							"USE salesdb;\n",
+							"USE salesdbCOSMOS;\n",
 							"\n",
 							"-- Create a table from the Cosmos DB container\n",
 							"CREATE TABLE salesorders using cosmos.olap options (\n",
-							"    spark.synapse.linkedService 'CosmosDb',\n",
-							"    spark.cosmos.container 'sales' -- case SENSITIVE\n",
+							"    spark.synapse.linkedService 'AdventureWorksCosmos',\n",
+							"    spark.cosmos.container 'Sales' -- case SENSITIVE\n",
 							");\n",
 							"\n",
 							"-- Query the table\n",
@@ -7583,7 +7758,7 @@
 							"FROM salesorders;"
 						],
 						"outputs": [],
-						"execution_count": 18
+						"execution_count": 34
 					},
 					{
 						"cell_type": "markdown",
@@ -7623,7 +7798,7 @@
 							"ORDER BY id;"
 						],
 						"outputs": [],
-						"execution_count": 19
+						"execution_count": 40
 					},
 					{
 						"cell_type": "markdown",
@@ -7672,10 +7847,10 @@
 							"%%sql\n",
 							"\n",
 							"DROP TABLE salesorders;\n",
-							"DROP DATABASE salesdb;"
+							"DROP DATABASE salesdbCOSMOS;"
 						],
 						"outputs": [],
-						"execution_count": 20
+						"execution_count": 30
 					}
 				]
 			},
@@ -7707,7 +7882,10 @@
 									"FormatType": "csv",
 									"LinkedServiceName": "synapse-vipaiva-WorkspaceDefaultStorage"
 								}
-							}
+							},
+							"PublishStatus": "PUBLISHED",
+							"ObjectVersion": 6,
+							"ObjectId": "bb34c0e1-9ab0-4e12-a5b1-03e545344b64"
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -7719,22 +7897,25 @@
 						"NewEntity": {
 							"Name": "Customer",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "RetailDB"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "RetailDB",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "CustomerId",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
 											"IsNullable": false,
+											"Length": 0,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -7748,6 +7929,8 @@
 											"IsComplexType": false,
 											"IsNullable": false,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
@@ -7761,6 +7944,8 @@
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
@@ -7774,6 +7959,8 @@
 											"IsComplexType": false,
 											"IsNullable": false,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
@@ -7787,12 +7974,15 @@
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 256,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "c3250a41-8fc7-4b2c-b0dd-0421b04ff263",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -7824,17 +8014,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "CustomerId",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"CustomerId\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"FirstName\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"LastName\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"EmailAddress\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"Phone\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 1,
+							"ObjectId": "c6bed8b2-7954-46b4-a630-7d3af46696cd",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -7846,22 +8053,25 @@
 						"NewEntity": {
 							"Name": "Product",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "RetailDB"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "RetailDB",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "ProductId",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
 											"IsNullable": true,
+											"Length": 0,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -7869,11 +8079,14 @@
 									},
 									{
 										"Name": "ProductName",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 128,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
@@ -7881,10 +8094,14 @@
 									},
 									{
 										"Name": "IntroductionDate",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
 											"IsNullable": true,
+											"Length": 0,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"DateFormat": "YYYY-MM-DD",
 												"HIVE_TYPE_STRING": "date"
@@ -7893,10 +8110,14 @@
 									},
 									{
 										"Name": "ActualAbandonmentDate",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "date",
 											"IsComplexType": false,
 											"IsNullable": true,
+											"Length": 0,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"DateFormat": "YYYY-MM-DD",
 												"HIVE_TYPE_STRING": "date"
@@ -7905,10 +8126,12 @@
 									},
 									{
 										"Name": "ProductGrossWeight",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
 											"IsNullable": true,
+											"Length": 0,
 											"Precision": 18,
 											"Scale": 8,
 											"Properties": {
@@ -7918,11 +8141,14 @@
 									},
 									{
 										"Name": "ItemSku",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
 											"IsNullable": true,
 											"Length": 20,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
 											}
@@ -7930,10 +8156,12 @@
 									},
 									{
 										"Name": "ListPrice",
+										"Description": null,
 										"OriginDataTypeName": {
 											"TypeName": "decimal",
 											"IsComplexType": false,
 											"IsNullable": true,
+											"Length": 0,
 											"Precision": 18,
 											"Scale": 2,
 											"Properties": {
@@ -7942,6 +8170,7 @@
 										}
 									}
 								],
+								"ColumnSetEntityName": "3f86d72f-8da3-438b-a3df-652cc1923540",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -7971,17 +8200,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"ProductId\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ProductName\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"IntroductionDate\",\"type\":\"date\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ActualAbandonmentDate\",\"type\":\"date\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ProductGrossWeight\",\"type\":\"decimal(18,8)\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ItemSku\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ListPrice\",\"type\":\"decimal(18,2)\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "d1d5ac92-28d1-480c-9817-89bb282b9d0e",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -7993,15 +8239,14 @@
 						"NewEntity": {
 							"Name": "SalesOrder",
 							"EntityType": "TABLE",
-							"Namespace": {
-								"DatabaseName": "RetailDB"
-							},
-							"Description": "",
 							"TableType": "EXTERNAL",
-							"Origin": {
-								"Type": "SPARK"
+							"Namespace": {
+								"SchemaName": null,
+								"DatabaseName": "RetailDB",
+								"DatabaseId": null
 							},
 							"StorageDescriptor": {
+								"Distribution": null,
 								"Columns": [
 									{
 										"Name": "SalesOrderId",
@@ -8010,6 +8255,9 @@
 											"TypeName": "long",
 											"IsComplexType": false,
 											"IsNullable": false,
+											"Length": 0,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -8022,6 +8270,9 @@
 											"TypeName": "timestamp",
 											"IsComplexType": false,
 											"IsNullable": true,
+											"Length": 0,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"TimestampFormat": "yyyy-MM-dd",
 												"HIVE_TYPE_STRING": "timestamp"
@@ -8035,6 +8286,9 @@
 											"TypeName": "long",
 											"IsComplexType": false,
 											"IsNullable": false,
+											"Length": 0,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -8047,6 +8301,9 @@
 											"TypeName": "long",
 											"IsComplexType": false,
 											"IsNullable": true,
+											"Length": 0,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -8059,6 +8316,9 @@
 											"TypeName": "long",
 											"IsComplexType": false,
 											"IsNullable": true,
+											"Length": 0,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -8071,12 +8331,16 @@
 											"TypeName": "long",
 											"IsComplexType": false,
 											"IsNullable": true,
+											"Length": 0,
+											"Precision": 0,
+											"Scale": 0,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
 										}
 									}
 								],
+								"ColumnSetEntityName": "f2ac4657-7208-4e93-aff1-de21ccb5ec4f",
 								"Format": {
 									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -8106,17 +8370,34 @@
 									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 								},
 								"Compressed": false,
+								"SerDeInfo": null,
 								"IsStoredAsSubdirectories": false
 							},
+							"Owner": null,
+							"CreateTime": 0,
+							"LastAccessTime": 0,
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false,
+							"ViewOriginalText": null,
+							"ViewExpandedText": null,
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"OriginObjectId": null,
+							"IsSharedEntity": false,
+							"PublishStatus": "PUBLISHED",
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 								"PrimaryKeys": "SalesOrderId,LineItemId",
-								"spark.sql.sources.provider": "csv"
+								"spark.sql.sources.provider": "csv",
+								"spark.sql.sources.schema.numParts": "1",
+								"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"SalesOrderId\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"OrderDate\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"LineItemId\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"CustomerId\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ProductId\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"Quantity\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}}]}"
 							},
-							"Retention": 0,
-							"Temporary": false,
-							"IsRewriteEnabled": false
+							"ObjectVersion": 2,
+							"ObjectId": "889bfcce-d2e9-41cc-932c-7a6a54e2f389",
+							"Description": ""
 						},
 						"Source": {
 							"Type": "SPARK"
@@ -8143,6 +8424,9 @@
 								}
 							],
 							"RelationshipType": 0,
+							"PublishStatus": "PUBLISHED",
+							"ObjectVersion": 1,
+							"ObjectId": "c85130ca-336a-4d9c-9a9e-62773459c7c7",
 							"Properties": {}
 						},
 						"Source": {
@@ -8170,6 +8454,9 @@
 								}
 							],
 							"RelationshipType": 0,
+							"PublishStatus": "PUBLISHED",
+							"ObjectVersion": 1,
+							"ObjectId": "ed2f83d6-37e6-4b2e-8e76-501af1ca92c8",
 							"Properties": {}
 						},
 						"Source": {
@@ -8179,18 +8466,6 @@
 				]
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/sqldwh')]",
-			"type": "Microsoft.Synapse/workspaces/sqlPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"collation": "SQL_Latin1_General_CP1_CI_AS",
-				"maxSizeBytes": 263882790666240,
-				"annotations": []
-			},
-			"dependsOn": [],
-			"location": "uksouth"
 		},
 		{
 			"name": "[concat(parameters('workspaceName'), '/sparkpool')]",
@@ -8212,6 +8487,18 @@
 				"sparkVersion": "3.2",
 				"isComputeIsolationEnabled": false,
 				"sessionLevelPackagesEnabled": false,
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "uksouth"
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/sqldwh')]",
+			"type": "Microsoft.Synapse/workspaces/sqlPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"collation": "SQL_Latin1_General_CP1_CI_AS",
+				"maxSizeBytes": 263882790666240,
 				"annotations": []
 			},
 			"dependsOn": [],
