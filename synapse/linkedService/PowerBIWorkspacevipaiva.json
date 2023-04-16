@@ -1,0 +1,11 @@
+{
+	"name": "PowerBIWorkspacevipaiva",
+	"properties": {
+		"annotations": [],
+		"type": "PowerBIWorkspace",
+		"typeProperties": {
+			"workspaceID": "78a71e65-49f0-47a5-84e5-42331a487b8d",
+			"tenantID": "89aaa48b-b9c6-4c61-876f-eeaf371048d4"
+		}
+	}
+}
