@@ -1,0 +1,17 @@
+{
+	"name": "CheckDataProductsPurview",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP (100) [ProductID]\n,[ProductName]\n,[Category]\n,[ListPrice]\n FROM [dbo].[productsPurview]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqldwh",
+				"poolName": "sqldwh"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
