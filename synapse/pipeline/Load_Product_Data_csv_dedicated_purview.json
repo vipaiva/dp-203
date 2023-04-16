@@ -111,6 +111,9 @@
 				]
 			}
 		],
+		"folder": {
+			"name": "dp-203/22-Use Microsoft Purview with Azure Synapse Analytics"
+		},
 		"annotations": []
 	}
 }
