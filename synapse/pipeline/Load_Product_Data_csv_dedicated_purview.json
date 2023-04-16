@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy_u4p",
+				"name": "Copy_Product_data",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
