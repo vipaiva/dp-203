@@ -1,6 +1,9 @@
 {
 	"name": "CheckDataProductsPurview",
 	"properties": {
+		"folder": {
+			"name": "dp-203/08-Govern data/22-Purview"
+		},
 		"content": {
 			"query": "SELECT TOP (10) [ProductID]\n,[ProductName]\n,[Category]\n,[ListPrice]\n FROM [dbo].[productsPurview]\n\n\n SELECT Count(*)  FROM [dbo].[productsPurview]\n\n",
 			"metadata": {
