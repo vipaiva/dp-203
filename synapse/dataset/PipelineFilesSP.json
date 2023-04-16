@@ -14,5 +14,6 @@
 				"fileSystem": "files"
 			}
 		}
-	}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
 }

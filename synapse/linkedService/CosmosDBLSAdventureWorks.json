@@ -1,0 +1,16 @@
+{
+	"name": "CosmosDBLSAdventureWorks",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "CosmosDb",
+		"typeProperties": {
+			"connectionString": "AccountEndpoint=https://cosmos-vipaiva.documents.azure.com:443/;Database=AdventureWorks;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIlNZTkFQU0VAM0U3Q0Q5REQtRDMyQy00Njg2LTlBNTAtNDM3RjczMjJBQjg1XzUzZGYzN2VmLWMzOGItNDVhOC1iNTA1LTYzNmFhMGVlYTQyOSINCn0="
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

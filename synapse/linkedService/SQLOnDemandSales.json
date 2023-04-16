@@ -1,5 +1,6 @@
 {
 	"name": "SQLOnDemandSales",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureSqlDW",

@@ -3,85 +3,92 @@
 	"properties": {
 		"Name": "Customer",
 		"EntityType": "TABLE",
-		"Namespace": {
-			"DatabaseName": "RetailDB"
-		},
-		"Description": "",
 		"TableType": "EXTERNAL",
-		"Origin": {
-			"Type": "SPARK"
+		"Namespace": {
+			"SchemaName": null,
+			"DatabaseName": "RetailDB",
+			"DatabaseId": null
 		},
 		"StorageDescriptor": {
+			"Distribution": null,
 			"Columns": [
 				{
 					"Name": "CustomerId",
+					"Description": null,
 					"OriginDataTypeName": {
 						"TypeName": "long",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				},
 				{
 					"Name": "FirstName",
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "string",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Length": 256,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				},
 				{
 					"Name": "LastName",
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "string",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
 						"Length": 256,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				},
 				{
 					"Name": "EmailAddress",
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "string",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Length": 256,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				},
 				{
 					"Name": "Phone",
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "string",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
 						"Length": 256,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "string"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				}
 			],
+			"ColumnSetEntityName": "c3250a41-8fc7-4b2c-b0dd-0421b04ff263",
 			"Format": {
 				"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 				"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -90,8 +97,8 @@
 				"Properties": {
 					"path": "abfss://files@datalakevipaiva.dfs.core.windows.net/RetailDB/Customer",
 					"delimiter": ",",
-					"multiLine": "false",
 					"firstRowAsHeader": "false",
+					"multiLine": "false",
 					"serialization.format": "1",
 					"escape": "\\",
 					"quote": "\"",
@@ -113,18 +120,34 @@
 				"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 			},
 			"Compressed": false,
+			"SerDeInfo": null,
 			"IsStoredAsSubdirectories": false
 		},
+		"Owner": null,
+		"CreateTime": 0,
+		"LastAccessTime": 0,
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false,
+		"ViewOriginalText": null,
+		"ViewExpandedText": null,
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"OriginObjectId": null,
+		"IsSharedEntity": false,
+		"PublishStatus": "PUBLISHED",
 		"Properties": {
 			"Description": "",
 			"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 			"PrimaryKeys": "CustomerId",
 			"spark.sql.sources.provider": "csv",
-			"sql:IsAppendOnly": false
+			"spark.sql.sources.schema.numParts": "1",
+			"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"CustomerId\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"FirstName\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"LastName\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"EmailAddress\",\"type\":\"string\",\"nullable\":false,\"metadata\":{}},{\"name\":\"Phone\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
 		},
-		"Retention": 0,
-		"Temporary": false,
-		"IsRewriteEnabled": false
+		"ObjectVersion": 1,
+		"ObjectId": "c6bed8b2-7954-46b4-a630-7d3af46696cd",
+		"Description": ""
 	},
 	"type": "TABLE"
 }

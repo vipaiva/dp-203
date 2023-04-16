@@ -65,6 +65,8 @@
 		"folder": {
 			"name": "dp-203/02-Serverless SQL"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2023-04-15T17:41:57Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
 }

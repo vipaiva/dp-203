@@ -17,7 +17,10 @@
 				"FormatType": "csv",
 				"LinkedServiceName": "synapse-vipaiva-WorkspaceDefaultStorage"
 			}
-		}
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 6,
+		"ObjectId": "bb34c0e1-9ab0-4e12-a5b1-03e545344b64"
 	},
 	"type": "DATABASE"
 }

@@ -17,7 +17,10 @@
 				"ToColumnName": "CustomerId"
 			}
 		],
-		"RelationshipType": 0
+		"RelationshipType": 0,
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 1,
+		"ObjectId": "ed2f83d6-37e6-4b2e-8e76-501af1ca92c8"
 	},
 	"type": "RELATIONSHIP"
 }

@@ -3,15 +3,14 @@
 	"properties": {
 		"Name": "SalesOrder",
 		"EntityType": "TABLE",
-		"Namespace": {
-			"DatabaseName": "RetailDB"
-		},
-		"Description": "",
 		"TableType": "EXTERNAL",
-		"Origin": {
-			"Type": "SPARK"
+		"Namespace": {
+			"SchemaName": null,
+			"DatabaseName": "RetailDB",
+			"DatabaseId": null
 		},
 		"StorageDescriptor": {
+			"Distribution": null,
 			"Columns": [
 				{
 					"Name": "SalesOrderId",
@@ -20,79 +19,92 @@
 						"TypeName": "long",
 						"IsComplexType": false,
 						"IsNullable": false,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				},
 				{
 					"Name": "OrderDate",
 					"Description": "The date of the order.",
 					"OriginDataTypeName": {
 						"TypeName": "timestamp",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"TimestampFormat": "yyyy-MM-dd",
 							"HIVE_TYPE_STRING": "timestamp"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				},
 				{
 					"Name": "LineItemId",
 					"Description": "The ID of an individual line item.",
 					"OriginDataTypeName": {
 						"TypeName": "long",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				},
 				{
 					"Name": "CustomerId",
 					"Description": "The customer.",
 					"OriginDataTypeName": {
 						"TypeName": "long",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				},
 				{
 					"Name": "ProductId",
 					"Description": "The product.",
 					"OriginDataTypeName": {
 						"TypeName": "long",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				},
 				{
 					"Name": "Quantity",
 					"Description": "The order quantity.",
 					"OriginDataTypeName": {
 						"TypeName": "long",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
 						"Properties": {
 							"HIVE_TYPE_STRING": "long"
 						}
-					},
-					"DeltaFormatInvalidMessages": []
+					}
 				}
 			],
+			"ColumnSetEntityName": "f2ac4657-7208-4e93-aff1-de21ccb5ec4f",
 			"Format": {
 				"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
 				"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
@@ -101,8 +113,8 @@
 				"Properties": {
 					"path": "abfss://files@datalakevipaiva.dfs.core.windows.net/RetailDB/SalesOrder",
 					"delimiter": ",",
-					"multiLine": "false",
 					"firstRowAsHeader": "false",
+					"multiLine": "false",
 					"serialization.format": "1",
 					"FormatTypeSetToDatabaseDefault": false,
 					"header": "false"
@@ -122,17 +134,34 @@
 				"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
 			},
 			"Compressed": false,
+			"SerDeInfo": null,
 			"IsStoredAsSubdirectories": false
 		},
+		"Owner": null,
+		"CreateTime": 0,
+		"LastAccessTime": 0,
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false,
+		"ViewOriginalText": null,
+		"ViewExpandedText": null,
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"OriginObjectId": null,
+		"IsSharedEntity": false,
+		"PublishStatus": "PUBLISHED",
 		"Properties": {
 			"Description": "",
 			"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 			"PrimaryKeys": "SalesOrderId,LineItemId",
-			"spark.sql.sources.provider": "csv"
+			"spark.sql.sources.provider": "csv",
+			"spark.sql.sources.schema.numParts": "1",
+			"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"SalesOrderId\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"OrderDate\",\"type\":\"timestamp\",\"nullable\":true,\"metadata\":{}},{\"name\":\"LineItemId\",\"type\":\"long\",\"nullable\":false,\"metadata\":{}},{\"name\":\"CustomerId\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"ProductId\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"Quantity\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}}]}"
 		},
-		"Retention": 0,
-		"Temporary": false,
-		"IsRewriteEnabled": false
+		"ObjectVersion": 2,
+		"ObjectId": "889bfcce-d2e9-41cc-932c-7a6a54e2f389",
+		"Description": ""
 	},
 	"type": "TABLE"
 }
