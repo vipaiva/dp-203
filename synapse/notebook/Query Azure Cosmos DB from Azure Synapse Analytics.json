@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "a7c26f4d-3dd4-412d-afc6-64a0bfc4828e"
+				"spark.autotune.trackingId": "e3e23519-8b9f-4a62-8041-543ac4e0d461"
 			}
 		},
 		"metadata": {
@@ -267,7 +267,7 @@
 					"FROM salesorders\n",
 					"ORDER BY id;"
 				],
-				"execution_count": 28
+				"execution_count": 29
 			},
 			{
 				"cell_type": "markdown",
