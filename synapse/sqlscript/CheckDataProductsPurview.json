@@ -2,7 +2,7 @@
 	"name": "CheckDataProductsPurview",
 	"properties": {
 		"content": {
-			"query": "SELECT TOP (100) [ProductID]\n,[ProductName]\n,[Category]\n,[ListPrice]\n FROM [dbo].[productsPurview]",
+			"query": "SELECT TOP (10) [ProductID]\n,[ProductName]\n,[Category]\n,[ListPrice]\n FROM [dbo].[productsPurview]\n\n\n SELECT Count(*)  FROM [dbo].[productsPurview]\n\n",
 			"metadata": {
 				"language": "sql"
 			},
