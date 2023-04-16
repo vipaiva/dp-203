@@ -1,0 +1,25 @@
+{
+	"name": "AzureSqlDatabaseAdventureWorksLT",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqldb-vipaiva.database.windows.net;Initial Catalog=AdventureWorksLT;User ID=azureuser",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "KeyVault",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"suffix": "vipaiva"
+					}
+				},
+				"secretName": "sqlpassword"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
