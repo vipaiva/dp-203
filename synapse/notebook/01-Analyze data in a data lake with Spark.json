@@ -21,7 +21,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "fd7d1537-7fb4-4b48-b3b1-6df77b79fa9a"
+				"spark.autotune.trackingId": "139ef607-0a3b-4cd8-8f92-8288361f61a9"
 			}
 		},
 		"metadata": {
@@ -446,7 +446,7 @@
 					" GROUP BY YEAR(OrderDate)\r\n",
 					" ORDER BY OrderYear;"
 				],
-				"execution_count": 31
+				"execution_count": 32
 			},
 			{
 				"cell_type": "markdown",
