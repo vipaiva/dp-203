@@ -1,0 +1,17 @@
+{
+	"name": "Create login",
+	"properties": {
+		"content": {
+			"query": "USE master;\nCREATE LOGIN [vipaiva]  WITH PASSWORD = 'xxxxxxxxx'\n\nUSE Sales;\nCREATE USER [vipaiva]  FOR LOGIN [vipaiva]\nEXEC sp_addrolemember 'db_datareader',  [vipaiva]\n\n\n---\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Sales",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
