@@ -6,7 +6,7 @@
 			"name": "dp-203/03-Spark"
 		},
 		"content": {
-			"query": "-- This demonstrates how you can use a serverless SQL pool to query delta format files that were created using Spark, \n-- and use the results for reporting or analysis.\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/07/delta/products-delta/',\n        FORMAT = 'DELTA'\n    ) AS [result]\n\n\n-- Observe that you can also use the serverless SQL pool to query Delta Lake data in catalog \n-- tables that are defined the Spark metastore.\n\nUSE AdventureWorks;\n\nSELECT * FROM Products;\n\n",
+			"query": "-- Original status of the source file\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/07/data/products.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0',\n        HEADER_ROW= TRUE\n            ) AS [result]\n    where ProductID = 771\n\n-- This demonstrates how you can use a serverless SQL pool to query delta format files that were created using Spark, \n-- and use the results for reporting or analysis.\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/07/delta/products-delta/',\n        FORMAT = 'DELTA'\n    ) AS [result]\n\n\n-- Observe that you can also use the serverless SQL pool to query Delta Lake data in catalog \n-- tables that are defined the Spark metastore.\n\nUSE AdventureWorks;\n\nSELECT * FROM Products;\n\n",
 			"metadata": {
 				"language": "sql"
 			},
