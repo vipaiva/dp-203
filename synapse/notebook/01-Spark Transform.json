@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "0475108b-a6f1-43d5-833d-5449cc3b39f4"
+				"spark.autotune.trackingId": "ea17fb80-b3a0-47ca-868c-e460641e900b"
 			}
 		},
 		"metadata": {
@@ -77,7 +77,7 @@
 					"order_details = spark.read.csv('/labs-dp-203/06/data/*.csv', header=True, inferSchema=True)\n",
 					"display(order_details.limit(5))"
 				],
-				"execution_count": 1
+				"execution_count": 2
 			},
 			{
 				"cell_type": "markdown",

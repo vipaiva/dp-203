@@ -1,0 +1,17 @@
+{
+	"name": "06 - Transform data with Spark",
+	"properties": {
+		"content": {
+			"query": "\n\n-- original file in csv with customer name\nSELECT\n    TOP 10 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/06/data/**',\n        FORMAT = 'CSV',\n        PARSER_VERSION = '2.0', HEADER_ROW = TRUE\n    ) AS [result]\n\n\n-- file after the transformation in the notebook using Spark , slit the name to First and Last name and delete the original column\nSELECT\n    TOP 10 *\nFROM\n    OPENROWSET(\n        BULK 'https://datalakevipaiva.dfs.core.windows.net/files/labs-dp-203/06/transformed_data/orders.parquet/**',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
