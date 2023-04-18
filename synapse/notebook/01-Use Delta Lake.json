@@ -21,7 +21,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "255ad27f-36b1-472a-bc4a-2695b8d0ce05"
+				"spark.autotune.trackingId": "4cf7e1fd-4e66-421d-afcd-ca9e15ee0fb9"
 			}
 		},
 		"metadata": {
@@ -41,14 +41,13 @@
 				"endpoint": "https://synapse-vipaiva.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
 				"auth": {
 					"type": "AAD",
-					"authResource": "https://dev.azuresynapse.net",
-					"authHeader": null
+					"authResource": "https://dev.azuresynapse.net"
 				},
 				"sparkVersion": "3.2",
 				"nodeCount": 3,
 				"cores": 8,
 				"memory": 56,
-				"extraHeader": null
+				"automaticScaleJobs": false
 			},
 			"sessionKeepAliveTimeout": 30
 		},
@@ -113,7 +112,7 @@
 					"delta_table_path = \"/labs-dp-203/07/delta/products-delta\"\n",
 					"df.write.format(\"delta\").save(delta_table_path)"
 				],
-				"execution_count": 3
+				"execution_count": 4
 			},
 			{
 				"cell_type": "markdown",
@@ -274,7 +273,7 @@
 				"source": [
 					"deltaTable.history(10).show(20, False, True)"
 				],
-				"execution_count": 7
+				"execution_count": 8
 			},
 			{
 				"cell_type": "markdown",
