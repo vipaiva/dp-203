@@ -1,0 +1,20 @@
+{
+	"name": "AzureSQLDB",
+	"properties": {
+		"folder": {
+			"name": "dp-203/08-Govern data/22-Purview"
+		},
+		"content": {
+			"query": "master\nCREATE MASTER KEY ENCRYPTION BY PASSWORD = 'P4ssw0rd';\nGO\nCREATE USER [purview-vipaiva] FROM EXTERNAL PROVIDER\n\n\nCREATE USER [purview-vipaiva] FROM LOGIN [purview-vipaiva]\nALTER ROLE db_datareader ADD MEMBER [purview-vipaiva]\nGRANT CONTROL ON DATABASE::AdventureWorksLT TO [purview-vipaiva];\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
