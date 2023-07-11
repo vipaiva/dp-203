@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 2",
+	"properties": {
+		"content": {
+			"query": "\n/*\nGet ready for the next demo (10-pipelines)\n*/\n\nIF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'DimProductLab11') DROP TABLE [dbo].[DimProductLab11];\n\nSET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\nCREATE TABLE [dbo].[DimProductLab11](\n    [ProductKey] [int] IDENTITY NOT NULL,\n    [ProductAltKey] [nvarchar](30) NULL,\n    [ProductName] [nvarchar](50) NULL,\n    [Color] [nvarchar](30) NULL,\n    [Size] [nvarchar](50) NULL,\n    [ListPrice] [money] NULL,\n    [Discontinued] [bit] NULL)\nWITH\n(\n\tDISTRIBUTION = HASH(ProductAltKey),\n\tCLUSTERED COLUMNSTORE INDEX\n);\nGO\n\nINSERT DimProductLab11\nVALUES('AR-5381','Adjustable Race','Red',NULL,1.99,0);\nGO\n\nINSERT DimProductLab11 VALUES('AR-5381','Adjustable Race','Red',NULL,1.99,0);\nGO\n\nDROP TABLE [dbo].[DimProductLab11];",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sqldwh",
+				"poolName": "sqldwh"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
