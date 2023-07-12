@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "3d17c8f7-d3d2-48f3-a4cf-9eaf81081836"
+				"spark.autotune.trackingId": "62ea4c92-d234-4906-b49c-533a83186b26"
 			}
 		},
 		"metadata": {
@@ -80,10 +80,51 @@
 					}
 				},
 				"source": [
-					"# Write DataFrame to a Parquet file in the data lake\r\n",
-					"df.write.format(\"parquet\").mode(\"overwrite\").save(\"Purview/demo\")"
+					" df.printSchema()"
 				],
-				"execution_count": 5
+				"execution_count": 6
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"from pyspark.sql.functions import split, col\r\n",
+					"\r\n",
+					"# Remove the CustomerName field\r\n",
+					"df = df.drop(\"_rid\",\"_rid\",\"customerdetails\",\"_etag\",\"_ts\")\r\n",
+					"\r\n",
+					""
+				],
+				"execution_count": 11
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# Write DataFrame to a Parquet file in the data lake\r\n",
+					"df.write.format(\"parquet\").mode(\"overwrite\").save(\"Purview/demo/\")"
+				],
+				"execution_count": 13
 			}
 		]
 	}
