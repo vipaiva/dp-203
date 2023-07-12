@@ -1,0 +1,22 @@
+{
+	"name": "DemoPurview",
+	"properties": {
+		"Name": "DemoPurview",
+		"EntityType": "DATABASE",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true
+		},
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://files@datalakevipaiva.dfs.core.windows.net/user/trusted-service-user/Purview/demo",
+			"Properties": {
+				"FormatType": "parquet",
+				"LinkedServiceName": "synapse-vipaiva-WorkspaceDefaultStorage"
+			}
+		}
+	},
+	"type": "DATABASE"
+}
