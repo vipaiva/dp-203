@@ -1,0 +1,20 @@
+{
+	"name": "SQL script 4",
+	"properties": {
+		"folder": {
+			"name": "FancyDemos/Serverless"
+		},
+		"content": {
+			"query": "CREATE DATABASE Ldw\n      COLLATE Latin1_General_100_BIN2_UTF8;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
