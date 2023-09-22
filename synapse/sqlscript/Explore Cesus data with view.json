@@ -1,16 +1,16 @@
 {
-	"name": "SQL script 4",
+	"name": "Explore Cesus data with view",
 	"properties": {
 		"folder": {
 			"name": "FancyDemos/Serverless"
 		},
 		"content": {
-			"query": "CREATE DATABASE Ldw\n      COLLATE Latin1_General_100_BIN2_UTF8;",
+			"query": "DROP DATABASE IF EXISTS AzureOpenDataCensus\nGO\n\n\nCREATE DATABASE AzureOpenDataCensus\n      COLLATE Latin1_General_100_BIN2_UTF8;\n\n-- There is no credential in data surce. We are using public storage account which doesn't need a secret.\nCREATE EXTERNAL DATA SOURCE AzureOpenData\nWITH ( LOCATION = 'https://azureopendatastorage.blob.core.windows.net/')\n\nDROP VIEW IF EXISTS usPopulationView;\nGO\n\nCREATE VIEW usPopulationView AS\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK 'censusdatacontainer/release/us_population_county/year=20*/*.parquet',\n        DATA_SOURCE = 'AzureOpenData',\n        FORMAT='PARQUET'\n    ) AS uspv;",
 			"metadata": {
 				"language": "sql"
 			},
 			"currentConnection": {
-				"databaseName": "master",
+				"databaseName": "AzureOpenDataCensus",
 				"poolName": "Built-in"
 			},
 			"resultLimit": 5000
