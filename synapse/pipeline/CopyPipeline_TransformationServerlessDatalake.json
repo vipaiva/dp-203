@@ -62,6 +62,9 @@
 				]
 			}
 		],
+		"folder": {
+			"name": "dp-203/05-Pipelines"
+		},
 		"annotations": []
 	}
 }
