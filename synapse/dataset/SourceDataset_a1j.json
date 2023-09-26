@@ -1,0 +1,16 @@
+{
+	"name": "SourceDataset_a1j",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQLOnDemandSales",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "YearlySalesTotalsPipeline"
+		}
+	}
+}
