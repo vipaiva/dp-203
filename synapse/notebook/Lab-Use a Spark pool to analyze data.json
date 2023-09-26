@@ -22,7 +22,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "392c4f7c-e0d0-4ff1-80d4-b626012e580e"
+				"spark.autotune.trackingId": "8ae454f1-bfab-40bf-a292-2b9c7a58d11e"
 			}
 		},
 		"metadata": {
@@ -42,14 +42,13 @@
 				"endpoint": "https://synapse-vipaiva.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
 				"auth": {
 					"type": "AAD",
-					"authResource": "https://dev.azuresynapse.net",
-					"authHeader": null
+					"authResource": "https://dev.azuresynapse.net"
 				},
 				"sparkVersion": "3.2",
 				"nodeCount": 3,
-				"cores": 4,
-				"memory": 28,
-				"extraHeader": null
+				"cores": 8,
+				"memory": 56,
+				"automaticScaleJobs": false
 			},
 			"sessionKeepAliveTimeout": 30
 		},
@@ -102,7 +101,7 @@
 					"\n",
 					"print(datalakename)"
 				],
-				"execution_count": 5
+				"execution_count": 1
 			},
 			{
 				"cell_type": "markdown",
@@ -133,7 +132,7 @@
 					")\r\n",
 					"display(df.limit(10))"
 				],
-				"execution_count": 6
+				"execution_count": 2
 			},
 			{
 				"cell_type": "markdown",
@@ -173,7 +172,7 @@
 					")\n",
 					"display(df.limit(10))"
 				],
-				"execution_count": 7
+				"execution_count": 3
 			},
 			{
 				"cell_type": "markdown",
@@ -208,7 +207,7 @@
 					"df_counts = df.groupby(df.Category).count()\n",
 					"display(df_counts)"
 				],
-				"execution_count": 8
+				"execution_count": 4
 			},
 			{
 				"cell_type": "markdown",
