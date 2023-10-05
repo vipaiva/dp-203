@@ -1,0 +1,310 @@
+{
+	"name": "DP-300 Lab instructions",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkpoolsmall",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "18d7f625-4ce5-48d7-a764-9192902050a7"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/073a4913-dc63-46b9-b676-fad837dab1ba/resourceGroups/rg-dp-203/providers/Microsoft.Synapse/workspaces/synapse-vipaiva/bigDataPools/sparkpoolsmall",
+				"name": "sparkpoolsmall",
+				"type": "Spark",
+				"endpoint": "https://synapse-vipaiva.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpoolsmall",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "3.3",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"- 200 : OK. It means we have a healthy connection with the API on web.\r\n",
+					"- 204: It depicts that we can successfully made a connection to the API, but did not return any data from the service.\r\n",
+					"- 401 : Authentication failed!\r\n",
+					"- 403 : Access is forbidden by the API service.\r\n",
+					"- 404 : The requested API service is not found on the server/web.\r\n",
+					"- 500 : Internal Server Error has occurred."
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"response_API = requests.get('https://github.com/MicrosoftLearning/dp-300-database-administrator/tree/master/Instructions/Labs')\r\n",
+					"response_API.status_code"
+				],
+				"execution_count": 98
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"data = response_API.text"
+				],
+				"execution_count": 99
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"display(data)"
+				],
+				"execution_count": 100
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"import requests\r\n",
+					"import re\r\n",
+					"\r\n",
+					"# Send a GET request to the GitHub URL\r\n",
+					"response_API = requests.get('https://github.com/MicrosoftLearning/dp-300-database-administrator/tree/master/Instructions/Labs')\r\n",
+					"\r\n",
+					"# Check if the request was successful\r\n",
+					"if response_API.status_code == 200:\r\n",
+					"    # Extract text between {\"name\":\" and \",\"path\":\r\n",
+					"    pattern = r'{\"name\":\"(.*?)\",\"path\":'\r\n",
+					"    name_elements = re.findall(pattern, response_API.text)\r\n",
+					"\r\n",
+					"    # Filter elements that start with numbers\r\n",
+					"    numeric_elements = [element for element in name_elements if element[0].isdigit()]\r\n",
+					"\r\n",
+					"    # Print the extracted numeric elements\r\n",
+					"    for numeric_element in numeric_elements:\r\n",
+					"        print(numeric_element)\r\n",
+					"else:\r\n",
+					"    print(\"Failed to retrieve data from the URL.\")\r\n",
+					""
+				],
+				"execution_count": 101
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"import requests\r\n",
+					"import re\r\n",
+					"\r\n",
+					"# Send a GET request to the GitHub URL\r\n",
+					"response_API = requests.get('https://github.com/MicrosoftLearning/dp-300-database-administrator/tree/master/Instructions/Labs')\r\n",
+					"\r\n",
+					"# Check if the request was successful\r\n",
+					"if response_API.status_code == 200:\r\n",
+					"    # Extract text between {\"name\":\" and \",\"path\":\r\n",
+					"    pattern = r'{\"name\":\"(.*?)\",\"path\":'\r\n",
+					"    name_elements = re.findall(pattern, response_API.text)\r\n",
+					"\r\n",
+					"    # Filter elements that start with numbers\r\n",
+					"    numeric_elements = [element for element in name_elements if element[0].isdigit()]\r\n",
+					"\r\n",
+					"    # Base URL for fetching content\r\n",
+					"    base_url = 'https://raw.githubusercontent.com/MicrosoftLearning/dp-300-database-administrator/master/Instructions/Labs/'\r\n",
+					"\r\n",
+					"    # Loop through numeric_elements and fetch content\r\n",
+					"    for numeric_element in numeric_elements:\r\n",
+					"        # Construct the URL\r\n",
+					"        url = base_url + numeric_element \r\n",
+					"\r\n",
+					"        # Send a GET request to the constructed URL\r\n",
+					"        content_response = requests.get(url)\r\n",
+					"\r\n",
+					"        if content_response.status_code == 200:\r\n",
+					"            # Content retrieval successful, print or process it as needed\r\n",
+					"            content = content_response.text\r\n",
+					"            print(f\"Content for {url}:\\n{content}\")\r\n",
+					"        else:\r\n",
+					"            print(f\"Failed to retrieve content from {url}\")\r\n",
+					"else:\r\n",
+					"    print(\"Failed to retrieve data from the URL.\")\r\n",
+					""
+				],
+				"execution_count": 102
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"Explore a bit the content of the instructions"
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"response_API = requests.get('https://raw.githubusercontent.com/MicrosoftLearning/dp-300-database-administrator/master/Instructions/Labs/01-provision-sql-vm.md')\r\n",
+					"data = response_API.text\r\n",
+					"display(data)"
+				],
+				"execution_count": 104
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"import requests\r\n",
+					"import re\r\n",
+					"\r\n",
+					"# Send a GET request to the GitHub URL\r\n",
+					"response_API = requests.get('https://github.com/MicrosoftLearning/dp-300-database-administrator/tree/master/Instructions/Labs')\r\n",
+					"\r\n",
+					"# Check if the request was successful\r\n",
+					"if response_API.status_code == 200:\r\n",
+					"    # Extract text between {\"name\":\" and \",\"path\":\r\n",
+					"    pattern = r'{\"name\":\"(.*?)\",\"path\":'\r\n",
+					"    name_elements = re.findall(pattern, response_API.text)\r\n",
+					"\r\n",
+					"    # Filter elements that start with numbers\r\n",
+					"    numeric_elements = [element for element in name_elements if element[0].isdigit()]\r\n",
+					"\r\n",
+					"    # Base URL for fetching content\r\n",
+					"    base_url = 'https://raw.githubusercontent.com/MicrosoftLearning/dp-300-database-administrator/master/Instructions/Labs/'\r\n",
+					"\r\n",
+					"    # Loop through numeric_elements and fetch content\r\n",
+					"    for numeric_element in numeric_elements:\r\n",
+					"        # Construct the URL\r\n",
+					"        url = base_url + numeric_element \r\n",
+					"\r\n",
+					"        # Send a GET request to the constructed URL\r\n",
+					"        content_response = requests.get(url)\r\n",
+					"\r\n",
+					"        if content_response.status_code == 200:\r\n",
+					"            # Content retrieval successful, get the content\r\n",
+					"            content = content_response.text\r\n",
+					"\r\n",
+					"            # Check if \"dp300-lab-\" is found in the content      \r\n",
+					"            if \"dp300-lab-\" in content or (\"SQL databases\" in content and not \"Provision\" in content or \"SQL databases\" in content and not \"Existing\" in content):\r\n",
+					"                # Specific code to execute when \"dp300-lab-\" is found\r\n",
+					"                print(f\"Found 'server name dp300-lab-XX' in {url}\")\r\n",
+					"                # Add your specific code here\r\n",
+					"\r\n",
+					"           \r\n",
+					"            # Print or process the content as needed\r\n",
+					"          #  print(f\"Content for {url}:\\n{content}\")\r\n",
+					"        else:\r\n",
+					"            print(f\"Failed to retrieve content from {url}\")\r\n",
+					"else:\r\n",
+					"    print(\"Failed to retrieve data from the URL.\")\r\n",
+					""
+				],
+				"execution_count": 105
+			}
+		]
+	}
+}
