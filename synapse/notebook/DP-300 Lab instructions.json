@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "18d7f625-4ce5-48d7-a764-9192902050a7"
+				"spark.autotune.trackingId": "3aae6575-13c4-4860-977b-63624c04723a"
 			}
 		},
 		"metadata": {
@@ -177,7 +177,7 @@
 					"import re\r\n",
 					"\r\n",
 					"# Send a GET request to the GitHub URL\r\n",
-					"response_API = requests.get('https://github.com/MicrosoftLearning/dp-300-database-administrator/tree/master/Instructions/Labs')\r\n",
+					"response_API = requests.get('C')\r\n",
 					"\r\n",
 					"# Check if the request was successful\r\n",
 					"if response_API.status_code == 200:\r\n",
