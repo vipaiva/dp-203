@@ -1,0 +1,237 @@
+{
+	"name": "02 - Data Transformation - Business Aggregates",
+	"properties": {
+		"folder": {
+			"name": "dp-203/FancyDemos/03 - Spark"
+		},
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "default",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "undefined",
+				"spark.dynamicAllocation.maxExecutors": "undefined",
+				"spark.autotune.trackingId": "6c142c34-4083-4c29-a0d4-fd5fbc5987da"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/trident/default",
+				"name": "default",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				}
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"### Spark session configuration\r\n",
+					"This cell sets Spark session settings to enable _Verti-Parquet_ and _Optimize on Write_. More details about _Verti-Parquet_ and _Optimize on Write_ in tutorial document."
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"cellStatus": "{\"Arshad Ali\":{\"queued_time\":\"2023-04-14T23:14:44.0639013Z\",\"session_start_time\":\"2023-04-14T23:14:44.2928543Z\",\"execution_start_time\":\"2023-04-14T23:14:55.3941283Z\",\"execution_finish_time\":\"2023-04-14T23:14:57.3983682Z\",\"state\":\"finished\",\"livy_statement_state\":\"available\"}}"
+				},
+				"source": [
+					"# Copyright (c) Microsoft Corporation.\n",
+					"# Licensed under the MIT License.\n",
+					"\n",
+					"spark.conf.set(\"spark.sql.parquet.vorder.enabled\", \"true\")\n",
+					"spark.conf.set(\"spark.microsoft.delta.optimizeWrite.enabled\", \"true\")\n",
+					"spark.conf.set(\"spark.microsoft.delta.optimizeWrite.binSize\", \"1073741824\")"
+				],
+				"execution_count": 1
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"#### Approach #1 - sale_by_date_city\r\n",
+					"In this cell, you are creating three different Spark dataframes, each referencing an existing delta table."
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"cellStatus": "{\"Arshad Ali\":{\"queued_time\":\"2023-04-14T23:14:44.0653167Z\",\"session_start_time\":null,\"execution_start_time\":\"2023-04-14T23:14:57.8304026Z\",\"execution_finish_time\":\"2023-04-14T23:15:57.0058225Z\",\"state\":\"finished\",\"livy_statement_state\":\"available\"}}"
+				},
+				"source": [
+					"df_fact_sale = spark.read.table(\"wwilakehouse.fact_sale\") \r\n",
+					"df_dimension_date = spark.read.table(\"wwilakehouse.dimension_date\")\r\n",
+					"df_dimension_city = spark.read.table(\"wwilakehouse.dimension_city\")"
+				],
+				"execution_count": 2
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"In this cell, you are joining these tables using the dataframes created earlier, doing group by to generate aggregation, renaming few of the columns and finally writing it as delta table in the _Tables_ section of the lakehouse."
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"cellStatus": "{\"Arshad Ali\":{\"queued_time\":\"2023-04-14T23:14:44.0704646Z\",\"session_start_time\":null,\"execution_start_time\":\"2023-04-14T23:15:57.4087615Z\",\"execution_finish_time\":\"2023-04-14T23:16:16.4931219Z\",\"state\":\"finished\",\"livy_statement_state\":\"available\"}}"
+				},
+				"source": [
+					"sale_by_date_city = df_fact_sale.alias(\"sale\") \\\r\n",
+					".join(df_dimension_date.alias(\"date\"), df_fact_sale.InvoiceDateKey == df_dimension_date.Date, \"inner\") \\\r\n",
+					".join(df_dimension_city.alias(\"city\"), df_fact_sale.CityKey == df_dimension_city.CityKey, \"inner\") \\\r\n",
+					".select(\"date.Date\", \"date.CalendarMonthLabel\", \"date.Day\", \"date.ShortMonth\", \"date.CalendarYear\", \"city.City\", \"city.StateProvince\", \"city.SalesTerritory\", \"sale.TotalExcludingTax\", \"sale.TaxAmount\", \"sale.TotalIncludingTax\", \"sale.Profit\")\\\r\n",
+					".groupBy(\"date.Date\", \"date.CalendarMonthLabel\", \"date.Day\", \"date.ShortMonth\", \"date.CalendarYear\", \"city.City\", \"city.StateProvince\", \"city.SalesTerritory\")\\\r\n",
+					".sum(\"sale.TotalExcludingTax\", \"sale.TaxAmount\", \"sale.TotalIncludingTax\", \"sale.Profit\")\\\r\n",
+					".withColumnRenamed(\"sum(TotalExcludingTax)\", \"SumOfTotalExcludingTax\")\\\r\n",
+					".withColumnRenamed(\"sum(TaxAmount)\", \"SumOfTaxAmount\")\\\r\n",
+					".withColumnRenamed(\"sum(TotalIncludingTax)\", \"SumOfTotalIncludingTax\")\\\r\n",
+					".withColumnRenamed(\"sum(Profit)\", \"SumOfProfit\")\\\r\n",
+					".orderBy(\"date.Date\", \"city.StateProvince\", \"city.City\")\r\n",
+					"\r\n",
+					"sale_by_date_city.write.mode(\"overwrite\").format(\"delta\").option(\"overwriteSchema\", \"true\").save(\"Tables/aggregate_sale_by_date_city\")"
+				],
+				"execution_count": 3
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"#### Approach #2 - sale_by_date_employee\r\n",
+					"In this cell, you are creating a temporary Spark view by joining 3 tables, doing group by to generate aggregation, renaming few of the columns. "
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "sparksql"
+					},
+					"cellStatus": "{\"Arshad Ali\":{\"queued_time\":\"2023-04-14T23:14:44.0716871Z\",\"session_start_time\":null,\"execution_start_time\":\"2023-04-14T23:16:16.8047041Z\",\"execution_finish_time\":\"2023-04-14T23:16:26.9405173Z\",\"state\":\"finished\",\"livy_statement_state\":\"available\"}}",
+					"collapsed": false
+				},
+				"source": [
+					"%%sql\r\n",
+					"CREATE OR REPLACE TEMPORARY VIEW sale_by_date_employee\r\n",
+					"AS\r\n",
+					"SELECT\r\n",
+					"\tDD.Date, DD.CalendarMonthLabel\r\n",
+					"    , DD.Day, DD.ShortMonth Month, CalendarYear Year\r\n",
+					"\t,DE.PreferredName, DE.Employee\r\n",
+					"\t,SUM(FS.TotalExcludingTax) SumOfTotalExcludingTax\r\n",
+					"\t,SUM(FS.TaxAmount) SumOfTaxAmount\r\n",
+					"\t,SUM(FS.TotalIncludingTax) SumOfTotalIncludingTax\r\n",
+					"\t,SUM(Profit) SumOfProfit \r\n",
+					"FROM wwilakehouse.fact_sale FS\r\n",
+					"INNER JOIN wwilakehouse.dimension_date DD ON FS.InvoiceDateKey = DD.Date\r\n",
+					"INNER JOIN wwilakehouse.dimension_Employee DE ON FS.SalespersonKey = DE.EmployeeKey\r\n",
+					"GROUP BY DD.Date, DD.CalendarMonthLabel, DD.Day, DD.ShortMonth, DD.CalendarYear, DE.PreferredName, DE.Employee\r\n",
+					"ORDER BY DD.Date ASC, DE.PreferredName ASC, DE.Employee ASC"
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"In this cell, you are reading from the temporary Spark view created in the previous cell and and finally writing it as delta table in the _Tables_ section of the lakehouse."
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"cellStatus": "{\"Arshad Ali\":{\"queued_time\":\"2023-04-14T23:14:44.0729484Z\",\"session_start_time\":null,\"execution_start_time\":\"2023-04-14T23:16:27.2707122Z\",\"execution_finish_time\":\"2023-04-14T23:16:46.344428Z\",\"state\":\"finished\",\"livy_statement_state\":\"available\"}}"
+				},
+				"source": [
+					"sale_by_date_employee = spark.sql(\"SELECT * FROM sale_by_date_employee\")\r\n",
+					"sale_by_date_employee.write.mode(\"overwrite\").format(\"delta\").option(\"overwriteSchema\", \"true\").save(\"Tables/aggregate_sale_by_date_employee\")"
+				],
+				"execution_count": 5
+			}
+		]
+	}
+}

@@ -1,0 +1,135 @@
+{
+	"name": "01 - Create Delta Tables",
+	"properties": {
+		"folder": {
+			"name": "dp-203/FancyDemos/03 - Spark"
+		},
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "default",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "undefined",
+				"spark.dynamicAllocation.maxExecutors": "undefined",
+				"spark.autotune.trackingId": "53e178a6-7df7-4bce-a179-bd6e88c50d94"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/trident/default",
+				"name": "default",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				}
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"### Fact - Sale\r\n",
+					"\r\n",
+					"This cell reads raw data from the _Files_ section of the lakehouse, adds additional columns for different date parts and the same information is being used to create partitioned fact delta table."
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"cellStatus": "{\"Arshad Ali\":{\"queued_time\":\"2023-04-14T18:02:25.4147613Z\",\"session_start_time\":null,\"execution_start_time\":\"2023-04-14T18:02:25.768228Z\",\"execution_finish_time\":\"2023-04-14T18:03:21.4120056Z\",\"state\":\"finished\",\"livy_statement_state\":\"available\"}}"
+				},
+				"source": [
+					"from pyspark.sql.functions import col, year, month, quarter\r\n",
+					"\r\n",
+					"table_name = 'fact_sale'\r\n",
+					"\r\n",
+					"df = spark.read.format(\"parquet\").load('Files/wwi-raw-data/full/fact_sale_1y_full')\r\n",
+					"df = df.withColumn('Year', year(col(\"InvoiceDateKey\")))\r\n",
+					"df = df.withColumn('Quarter', quarter(col(\"InvoiceDateKey\")))\r\n",
+					"df = df.withColumn('Month', month(col(\"InvoiceDateKey\")))\r\n",
+					"\r\n",
+					"df.write.mode(\"overwrite\").format(\"delta\").partitionBy(\"Year\",\"Quarter\").save(\"Tables/\" + table_name)"
+				],
+				"execution_count": 2
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"### Dimensions\r\n",
+					"This cell creates a function to read raw data from the _Files_ section of the lakehouse for the table name passed as a parameter. Next, it creates a list of dimension tables. Finally, it has a _for loop_ to loop through the list of tables and call above function with each table name as parameter to read data for that specific table and create delta table."
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"cellStatus": "{\"Arshad Ali\":{\"queued_time\":\"2023-04-14T17:53:12.0270275Z\",\"session_start_time\":null,\"execution_start_time\":\"2023-04-14T17:56:22.4495972Z\",\"execution_finish_time\":\"2023-04-14T17:56:32.6772207Z\",\"state\":\"finished\",\"livy_statement_state\":\"available\"}}"
+				},
+				"source": [
+					"from pyspark.sql.types import *\n",
+					"\n",
+					"def loadFullDataFromSource(table_name):\n",
+					"    df = spark.read.format(\"parquet\").load('Files/wwi-raw-data/full/' + table_name)\n",
+					"    df = df.select([c for c in df.columns if c != 'Photo'])\n",
+					"    df.write.mode(\"overwrite\").format(\"delta\").save(\"Tables/\" + table_name)\n",
+					"\n",
+					"full_tables = [\n",
+					"    'dimension_city',\n",
+					"    'dimension_date',\n",
+					"    'dimension_employee',\n",
+					"    'dimension_stock_item'\n",
+					"    ]\n",
+					"\n",
+					"for table in full_tables:\n",
+					"    loadFullDataFromSource(table)"
+				],
+				"execution_count": 3
+			}
+		]
+	}
+}
