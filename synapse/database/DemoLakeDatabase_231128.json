@@ -1,0 +1,22 @@
+{
+	"name": "DemoLakeDatabase_231128",
+	"properties": {
+		"Name": "DemoLakeDatabase_231128",
+		"EntityType": "DATABASE",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true
+		},
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://files@datalakevipaiva.dfs.core.windows.net/DemoLakeDatabase_231128",
+			"Properties": {
+				"FormatType": "csv",
+				"LinkedServiceName": "synapse-vipaiva-WorkspaceDefaultStorage"
+			}
+		}
+	},
+	"type": "DATABASE"
+}
